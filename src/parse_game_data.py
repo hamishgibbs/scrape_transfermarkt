@@ -1,7 +1,8 @@
 import sys
+import re
 import pandas as pd
 from datetime import datetime
-from parse import parse_table, parse_team_name
+from bs4 import BeautifulSoup
 
 def parse_date_time(date, time):
     return datetime.strptime(date.split(" ")[-1] + " " + time, 
@@ -12,28 +13,31 @@ def parse_score(td):
 
 def parse_game_data(fn):
 
-    game_rows = parse_table(fn)
+    with open(fn, "r") as f:
+        html = f.read()
+
+    soup = BeautifulSoup(html, "html.parser")
+
+    tables_div = soup.find_all(class_="large-8 columns")[0]
+
+    game_tables = tables_div.find_all('tbody')
 
     game_data = []
 
-    for row in game_rows:
-        row_data = {}
+    for table in game_tables[1:-1]:
 
-        if row.find_all('td', class_="extrarow"):
-            continue
+        td = table.find_all('td')
 
-        td = row.find_all('td')
-        
-        row_data["date_time"] = parse_date_time(
-            date = td[1].text.strip(),
-            time = td[2].text.strip()
+        game_data.append(
+            {
+                "home_team": td[0].find_all('a')[-1].get("href").split("/")[1],
+                "away_team": td[7].find_all('a')[0].get("href").split("/")[1],
+                "date": td[9].find_all('a')[0].text.strip(),
+                "time": re.findall(r'(\d*:\d* \w*)', td[9].text)[0],
+                "attendance": td[10].text.strip().split('\t')[0].replace(".", "")
+            }
         )
-        row_data["home_team"] = parse_team_name(td[4])
-        row_data["away_team"] = parse_team_name(td[6])
-        row_data["attendance"] = td[9].text.strip()
-        row_data["home_score"], row_data["away_score"] = parse_score(td[10])
-        game_data.append(row_data)
-    
+        
     df = pd.DataFrame.from_records(game_data)
 
     return df
