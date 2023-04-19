@@ -24,9 +24,12 @@ def parse_game_data(fn):
 
     game_data = []
 
-    for table in game_tables[1:-1]:
+    for table in game_tables[1:]:
 
         td = table.find_all('td')
+
+        if "List of goalscorers" in "".join([x.prettify() for x in td]):
+            continue
 
         game_data.append(
             {
