@@ -1,15 +1,24 @@
 import sys
 import pandas as pd
 from datetime import datetime
-from parse import parse_table, parse_team_name
+from bs4 import BeautifulSoup
+
+def parse_team_name(td):
+    return td.find_all('a')[0].get("title")
 
 def parse_team_url_stub(td):
     return td.find_all('a')[0].get("href").split("/")[1]
 
-
 def parse_teams_data(fn):
 
-    teams_rows = parse_table(fn)
+    with open(fn, "r") as f:
+        html = f.read()
+
+    soup = BeautifulSoup(html, "html.parser")
+
+    table = soup.find_all(class_="responsive-table")[0]
+
+    teams_rows = table.find_all('tbody')[0].find_all('tr')
     
     team_data = []
 
