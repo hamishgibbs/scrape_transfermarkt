@@ -11,24 +11,36 @@ rule all:
         "data/games.csv",
         "data/geo/stadiums.geojson"
 
+
+def get_teams_url(wildcards):
+    return f"https://www.transfermarkt.co.uk/premier-league/startseite/wettbewerb/GB1/plus/?saison_id={wildcards.season}"
+
 rule scrape_teams:
     input:
         "src/scrape.py"
     output:
-        temporary("data/teams.html")
+        temporary("data/teams_{season}.html")
     params:
-        url="https://www.transfermarkt.co.uk/premier-league/startseite/wettbewerb/GB1"
+        url=get_teams_url
     shell:
         "python {input} {params.url} {output}"
 
 rule parse_teams:
     input:
         "src/parse_teams.py",
-        "data/teams.html"
+        "data/teams_{season}.html"
     output:
-        "data/teams.csv"
+        temporary("data/teams_{season}.csv")
     shell:
         "python {input} {output}"
+
+rule concat_teams:
+    input:
+        expand("data/teams_{season}.csv", season=seasons)
+    output:
+        "data/teams.csv"
+    run:
+        pd.concat([pd.read_csv(fn) for fn in input]).drop_duplicates().to_csv(output[0], index=False)
 
 def get_game_url(wildcards):
     return f"https://www.transfermarkt.co.uk/premier-league/spieltag/wettbewerb/GB1/saison_id/{wildcards.season}/spieltag/{wildcards.matchday}"
