@@ -77,7 +77,7 @@ rule update_test_data:
     output:
         "tests/data/game_data.html",
         "tests/data/game_data_sold_out.html",
-        "tests/data/game_data_attendance.html",
+        "tests/data/game_data_attendance_missing.html",
         "tests/data/teams_data.html",
         "tests/data/stadium_data.html"
     params:

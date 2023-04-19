@@ -40,6 +40,8 @@ def parse_game_data(fn):
         
     df = pd.DataFrame.from_records(game_data)
 
+    df["attendance"] = pd.to_numeric(df["attendance"], errors="coerce")
+
     return df
 
 if __name__ == "__main__":
