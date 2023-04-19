@@ -6,6 +6,7 @@ matchdays = range(1, 39)
 
 rule all:
     input:
+        "data/teams.csv",
         "data/stadiums.csv",
         expand("data/games/clean/season_{season}_matchday_{matchday}.csv", season=seasons, matchday=matchdays)
 
@@ -50,15 +51,25 @@ rule parse_games:
     shell:
         "python {input} {output}"
 
+
 rule scrape_stadiums:
     input:
-        "src/scrape_stadiums.py",
-        "data/teams.csv"
+        "src/scrape.py"
+    output:
+        temporary("data/stadiums.html")
+    params:
+        url="https://www.transfermarkt.co.uk/premier-league/stadien/wettbewerb/GB1"
+    shell:
+        "python {input} {params.url} {output}"
+
+rule parse_stadiums:
+    input:
+        "src/parse_stadiums.py",
+        "data/stadiums.html"
     output:
         "data/stadiums.csv"
     shell:
         "python {input} {output}"
-
 
 rule update_test_data:
     input: 
