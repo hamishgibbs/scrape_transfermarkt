@@ -72,28 +72,39 @@ rule concat_games:
     run:
         pd.concat([pd.read_csv(fn) for fn in input]).to_csv(output[0], index=False)
 
+def get_stadium_url(wildcards):
+    return f"https://www.transfermarkt.co.uk/premier-league/stadien/wettbewerb/GB1/plus/?saison_id={wildcards.season}"
+
 rule scrape_stadiums:
     input:
         "src/scrape.py"
     output:
-        temporary("data/stadiums.html")
+        temporary("data/stadiums_{season}.html")
     params:
-        url="https://www.transfermarkt.co.uk/premier-league/stadien/wettbewerb/GB1"
+        url=get_stadium_url
     shell:
         "python {input} {params.url} {output}"
 
 rule parse_stadiums:
     input:
         "src/parse_stadiums.py",
-        "data/stadiums.html"
+        "data/stadiums_{year}.html"
     output:
-        "data/stadiums.csv"
+        temporary("data/stadiums_{year}.csv")
     shell:
         "python {input} {output}"
 
+rule concat_stadiums:
+    input:
+        expand("data/stadiums_{season}.csv", season=seasons)
+    output:
+        "data/stadiums.csv"
+    run:
+        pd.concat([pd.read_csv(fn) for fn in input]).drop_duplicates().to_csv(output[0], index=False)
+
 rule scrape_stadiums_geo:
     input:
-        "src/osm_stadiums.py",
+        "src/osm_stadiums.R",
         "data/stadiums.csv",
         "data/geo/osm_stadium_name_lookup.csv"
     output:
