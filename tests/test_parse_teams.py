@@ -1,7 +1,7 @@
-from src.parse_teams_data import parse_teams_data
+from parse_teams import parse_teams_data
 
 def test_parse_teams_data():
 
-    parse_teams_data("tests/data/teams_data.html")
+    res = parse_teams_data("tests/data/teams_data.html")
 
-    assert False
+    assert res.shape == (20, 2)

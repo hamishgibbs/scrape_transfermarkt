@@ -8,7 +8,7 @@ rule all:
     input:
         "data/teams.csv",
         "data/stadiums.csv",
-        expand("data/games/clean/season_{season}_matchday_{matchday}.csv", season=seasons, matchday=matchdays)
+        "data/games.csv"
 
 rule scrape_teams:
     input:
@@ -36,7 +36,7 @@ rule scrape_games:
     input:
         "src/scrape.py"
     output:
-        "data/games/html/season_{season}_matchday_{matchday}.html"
+        temporary("data/games/html/season_{season}_matchday_{matchday}.html")
     params:
         url=get_game_url
     shell:
@@ -47,10 +47,17 @@ rule parse_games:
         "src/parse_games.py",
         "data/games/html/season_{season}_matchday_{matchday}.html"
     output:
-        "data/games/clean/season_{season}_matchday_{matchday}.csv"
+        temporary("data/games/clean/season_{season}_matchday_{matchday}.csv")
     shell:
         "python {input} {output}"
 
+rule concat_games:
+    input:
+        expand("data/games/clean/season_{season}_matchday_{matchday}.csv", season=seasons, matchday=matchdays)
+    output:
+        "data/games.csv"
+    run:
+        pd.concat([pd.read_csv(fn) for fn in input]).to_csv(output[0], index=False)
 
 rule scrape_stadiums:
     input:
