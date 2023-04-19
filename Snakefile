@@ -9,7 +9,7 @@ rule all:
         "data/teams.csv",
         expand("data/games/clean/season_{season}_matchday_{matchday}.csv", season=seasons, matchday=matchdays)
 
-rule scrape_teams_data:
+rule scrape_teams:
     input:
         "src/scrape.py"
     output:
@@ -19,9 +19,9 @@ rule scrape_teams_data:
     shell:
         "python {input} {params.url} {output}"
 
-rule parse_teams_data:
+rule parse_teams:
     input:
-        "src/parse_teams_data.py",
+        "src/parse_teams.py",
         "data/teams.html"
     output:
         "data/teams.csv"
@@ -31,7 +31,7 @@ rule parse_teams_data:
 def get_game_url(wildcards):
     return f"https://www.transfermarkt.co.uk/premier-league/spieltag/wettbewerb/GB1/saison_id/{wildcards.season}/spieltag/{wildcards.matchday}"
 
-rule scrape_game_data:
+rule scrape_games:
     input:
         "src/scrape.py"
     output:
@@ -41,9 +41,9 @@ rule scrape_game_data:
     shell:
         "python {input} '{params.url}' {output}"
 
-rule parse_game_data:
+rule parse_games:
     input:
-        "src/parse_game_data.py",
+        "src/parse_games.py",
         "data/games/html/season_{season}_matchday_{matchday}.html"
     output:
         "data/games/clean/season_{season}_matchday_{matchday}.csv"

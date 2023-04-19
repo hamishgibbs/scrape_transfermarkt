@@ -1,4 +1,4 @@
-from src.parse_game_data import parse_game_data
+from parse_games import parse_game_data
 
 def test_parse_game_data():
 
