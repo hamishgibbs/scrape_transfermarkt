@@ -6,7 +6,7 @@ matchdays = range(1, 39)
 
 rule all:
     input:
-        "data/teams.csv",
+        "data/stadiums.csv",
         expand("data/games/clean/season_{season}_matchday_{matchday}.csv", season=seasons, matchday=matchdays)
 
 rule scrape_teams:
@@ -49,6 +49,16 @@ rule parse_games:
         "data/games/clean/season_{season}_matchday_{matchday}.csv"
     shell:
         "python {input} {output}"
+
+rule scrape_stadiums:
+    input:
+        "src/scrape_stadiums.py",
+        "data/teams.csv"
+    output:
+        "data/stadiums.csv"
+    shell:
+        "python {input} {output}"
+
 
 rule update_test_data:
     input: 

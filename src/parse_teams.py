@@ -28,7 +28,7 @@ def parse_teams_data(fn):
         td = row.find_all('td')
         
         row_data["name"] = parse_team_name(td[1])
-        row_data["url_stub"] = parse_team_url_stub(td[1].find_all('a')[0].get("href").split("/")[1])
+        row_data["url_stub"] = td[1].find_all('a')[0].get("href").split("/")[1]
         team_data.append(row_data)
     
     df = pd.DataFrame.from_records(team_data)
