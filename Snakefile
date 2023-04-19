@@ -70,6 +70,6 @@ rule update_test_data:
     params:
         "https://www.transfermarkt.co.uk/premier-league/spieltag/wettbewerb/GB1/saison_id/2019/spieltag/1",
         "https://www.transfermarkt.co.uk/premier-league/startseite/wettbewerb/GB1",
-        "https://www.transfermarkt.co.uk/fc-liverpool/stadion/verein/31/saison_id/2019"
+        "https://www.transfermarkt.co.uk/premier-league/stadien/wettbewerb/GB1"
     shell:
         "python {input} {params} {output}"

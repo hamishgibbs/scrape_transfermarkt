@@ -15,11 +15,11 @@ def parse_teams_data(fn):
 
     table = soup.find_all(class_="responsive-table")[0]
 
-    teams_rows = table.find_all('tbody')[0].find_all('tr')
+    rows = table.find_all('tbody')[0].find_all('tr')
     
     team_data = []
 
-    for row in teams_rows:
+    for row in rows:
         row_data = {}
 
         if row.find_all('th'):

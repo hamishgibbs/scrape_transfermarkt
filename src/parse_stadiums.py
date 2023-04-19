@@ -10,14 +10,24 @@ def parse_stadium_data(fn):
 
     soup = BeautifulSoup(html, "html.parser")
 
-    stadium_table = soup.find_all('table', class_='profilheader')[0]
-    
-    td = stadium_table.find_all('td')
+    table = soup.find_all(class_="responsive-table")[0]
 
-    return pd.DataFrame({
-            "name": [td[0].text],
-            "total_capacity": [td[1].text.replace(".", "")]
-    })
+    rows = table.find_all('tbody')[0].find_all('tr', recursive=False)
+    
+    stadium_data = []
+
+    for row in rows:
+
+        td = row.find_all('td', recursive=False)
+        
+        stadium_data.append({
+            "team": td[0].find_all('a')[0].get("href").split("/")[1],
+            "name": td[0].find_all('a')[1].text,
+            "capacity": td[1].text.replace(".", ""),
+            "seats": td[3].text.replace(".", "")
+        })
+    
+    return pd.DataFrame.from_records(stadium_data)
 
 if __name__ == "__main__":
     df = parse_stadium_data(sys.argv[1])
