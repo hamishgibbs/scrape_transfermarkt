@@ -1,13 +1,18 @@
+import os
 import pandas as pd
 
-team_urls = pd.read_csv("data/teams.csv")["url_stub"].to_list()
-seasons = [2016, 2017, 2018, 2019, 2020]
+TEAM_DATA_PATH="data/teams.csv"
 
-def get_game_url(wildcards):
-    return f"https://www.transfermarkt.co.uk/{wildcards.team}/spielplandatum/verein/985/plus/1?saison_id={wildcards.season}&wettbewerb_id=&day=&heim_gast=&punkte=&datum_von=-&datum_bis=-"
+if os.path.exists(TEAM_DATA_PATH):
+    team_urls = pd.read_csv("data/teams.csv")["url_stub"].to_list()
+else:
+    team_urls = []
+
+seasons = [2016, 2017, 2018, 2019, 2020]
 
 rule all:
     input:
+        "data/teams.csv",
         expand("data/games/clean/{team}_{season}.csv", team=team_urls, season=seasons)
 
 rule scrape_teams_data:
@@ -28,6 +33,9 @@ rule parse_teams_data:
         "data/teams.csv"
     shell:
         "python {input} {output}"
+
+def get_game_url(wildcards):
+    return f"https://www.transfermarkt.co.uk/{wildcards.team}/spielplandatum/verein/985/plus/1?saison_id={wildcards.season}&wettbewerb_id=&day=&heim_gast=&punkte=&datum_von=-&datum_bis=-"
 
 rule scrape_game_data:
     input:
