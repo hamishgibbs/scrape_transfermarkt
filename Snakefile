@@ -9,7 +9,8 @@ rule all:
         "data/teams.csv",
         "data/stadiums.csv",
         "data/games.csv",
-        "data/geo/stadiums.geojson"
+        "data/geo/stadiums.geojson",
+        "data/qa_success.txt"
 
 
 def get_teams_url(wildcards):
@@ -129,3 +130,16 @@ rule update_test_data:
         "https://www.transfermarkt.co.uk/premier-league/stadien/wettbewerb/GB1"
     shell:
         "python {input} {params} {output}"
+
+rule qa:
+    input:
+        "tests/test_games_qa.py",
+        "tests/test_stadiums_qa.py",
+        "data/teams.csv",
+        "data/games.csv",
+        "data/stadiums.csv",
+        "data/geo/stadiums.geojson"
+    output:
+        "data/qa_success.txt"
+    shell:
+        "python -m pytest -k _qa -vv --teams_fn {input[2]} --games_fn {input[3]} --stadiums_fn {input[4]} --stadiums_geo_fn {input[5]} | tee {output}"
