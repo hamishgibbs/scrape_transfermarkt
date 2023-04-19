@@ -6,7 +6,8 @@ matchdays = range(1, 39)
 
 rule all:
     input:
-        "data/qa_success.txt"
+        "data/qa_success.txt",
+        "rulegraph.svg"
 
 
 def get_teams_url(wildcards):
@@ -139,3 +140,11 @@ rule qa:
         "data/qa_success.txt"
     shell:
         "python -m pytest tests/qa -k _qa -vv --teams_fn {input[2]} --games_fn {input[3]} --stadiums_fn {input[4]} --stadiums_geo_fn {input[5]} | tee {output}"
+
+rule rulegraph:
+    input:
+        "Snakefile"
+    output:
+        "rulegraph.svg"
+    shell:
+        "snakemake --rulegraph | dot -Tsvg > {output}"
