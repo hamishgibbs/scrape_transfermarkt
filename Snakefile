@@ -1,19 +1,13 @@
 import os
 import pandas as pd
 
-TEAM_DATA_PATH="data/teams.csv"
-
-if os.path.exists(TEAM_DATA_PATH):
-    team_urls = pd.read_csv("data/teams.csv")["url_stub"].to_list()
-else:
-    team_urls = []
-
 seasons = [2016, 2017, 2018, 2019, 2020]
+matchdays = range(1, 39)
 
 rule all:
     input:
         "data/teams.csv",
-        expand("data/games/clean/{team}_{season}.csv", team=team_urls, season=seasons)
+        expand("data/games/clean/season_{season}_matchday_{matchday}.csv", season=seasons, matchday=matchdays)
 
 rule scrape_teams_data:
     input:
@@ -35,13 +29,13 @@ rule parse_teams_data:
         "python {input} {output}"
 
 def get_game_url(wildcards):
-    return f"https://www.transfermarkt.co.uk/{wildcards.team}/spielplandatum/verein/985/plus/1?saison_id={wildcards.season}&wettbewerb_id=&day=&heim_gast=&punkte=&datum_von=-&datum_bis=-"
+    return f"https://www.transfermarkt.co.uk/premier-league/spieltag/wettbewerb/GB1/saison_id/{wildcards.season}/spieltag/{wildcards.matchday}"
 
 rule scrape_game_data:
     input:
         "src/scrape.py"
     output:
-        "data/games/html/{team}_{season}.html"
+        "data/games/html/season_{season}_matchday_{matchday}.html"
     params:
         url=get_game_url
     shell:
@@ -50,9 +44,9 @@ rule scrape_game_data:
 rule parse_game_data:
     input:
         "src/parse_game_data.py",
-        "data/games/html/{team}_{season}.html"
+        "data/games/html/season_{season}_matchday_{matchday}.html"
     output:
-        "data/games/clean/{team}_{season}.csv"
+        "data/games/clean/season_{season}_matchday_{matchday}.csv"
     shell:
         "python {input} {output}"
 
@@ -61,6 +55,11 @@ rule update_test_data:
         "src/update_test_data.py"
     output:
         "tests/data/game_data.html",
-        "tests/data/teams_data.html"
+        "tests/data/teams_data.html",
+        "tests/data/stadium_data.html"
+    params:
+        "https://www.transfermarkt.co.uk/premier-league/spieltag/wettbewerb/GB1/saison_id/2019/spieltag/1",
+        "https://www.transfermarkt.co.uk/premier-league/startseite/wettbewerb/GB1",
+        "https://www.transfermarkt.co.uk/fc-liverpool/stadion/verein/31/saison_id/2019"
     shell:
-        "python {input} {output}"
+        "python {input} {params} {output}"
