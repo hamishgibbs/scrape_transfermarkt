@@ -34,7 +34,7 @@ def parse_game_data(fn):
                 "away_team": td[7].find_all('a')[0].get("href").split("/")[1],
                 "date": td[9].find_all('a')[0].text.strip(),
                 "time": re.findall(r'(\d*:\d* \w*)', td[9].text)[0],
-                "attendance": td[10].text.strip().split('\t')[0].replace(".", "")
+                "attendance": td[10].text.strip().split('\t')[0].replace(".", "").split(" ")[0]
             }
         )
         

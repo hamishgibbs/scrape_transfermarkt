@@ -76,10 +76,14 @@ rule update_test_data:
         "src/update_test_data.py"
     output:
         "tests/data/game_data.html",
+        "tests/data/game_data_sold_out.html",
+        "tests/data/game_data_attendance.html",
         "tests/data/teams_data.html",
         "tests/data/stadium_data.html"
     params:
         "https://www.transfermarkt.co.uk/premier-league/spieltag/wettbewerb/GB1/saison_id/2019/spieltag/1",
+        "https://www.transfermarkt.co.uk/premier-league/spieltag/wettbewerb/GB1/saison_id/2016/spieltag/1",
+        "https://www.transfermarkt.co.uk/premier-league/spieltag/wettbewerb/GB1/saison_id/2019/spieltag/30",
         "https://www.transfermarkt.co.uk/premier-league/startseite/wettbewerb/GB1",
         "https://www.transfermarkt.co.uk/premier-league/stadien/wettbewerb/GB1"
     shell:
