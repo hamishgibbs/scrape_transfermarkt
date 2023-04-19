@@ -8,7 +8,8 @@ rule all:
     input:
         "data/teams.csv",
         "data/stadiums.csv",
-        "data/games.csv"
+        "data/games.csv",
+        "data/geo/stadiums.geojson"
 
 rule scrape_teams:
     input:
@@ -77,6 +78,16 @@ rule parse_stadiums:
         "data/stadiums.csv"
     shell:
         "python {input} {output}"
+
+rule scrape_stadiums_geo:
+    input:
+        "src/osm_stadiums.py",
+        "data/stadiums.csv",
+        "data/geo/osm_stadium_name_lookup.csv"
+    output:
+        "data/geo/stadiums.geojson"
+    shell:
+        "Rscript {input} {output}"
 
 rule update_test_data:
     input: 

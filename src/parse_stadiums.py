@@ -24,6 +24,7 @@ def parse_stadium_data(fn):
         stadium_data.append({
             "team": td[0].find_all('a')[0].get("href").split("/")[1],
             "name": td[0].find_all('a')[1].text,
+            "city": td[0].find_all("td")[-1].text.strip(),
             "capacity": td[1].text.strip().replace(".", ""),
             "seats": td[3].text.strip().replace(".", "")
         })
