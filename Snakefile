@@ -6,10 +6,6 @@ matchdays = range(1, 39)
 
 rule all:
     input:
-        "data/teams.csv",
-        "data/stadiums.csv",
-        "data/games.csv",
-        "data/geo/stadiums.geojson",
         "data/qa_success.txt"
 
 
@@ -133,8 +129,8 @@ rule update_test_data:
 
 rule qa:
     input:
-        "tests/test_games_qa.py",
-        "tests/test_stadiums_qa.py",
+        "tests/qa/test_games_qa.py",
+        "tests/qa/test_stadiums_qa.py",
         "data/teams.csv",
         "data/games.csv",
         "data/stadiums.csv",
@@ -142,4 +138,4 @@ rule qa:
     output:
         "data/qa_success.txt"
     shell:
-        "python -m pytest -k _qa -vv --teams_fn {input[2]} --games_fn {input[3]} --stadiums_fn {input[4]} --stadiums_geo_fn {input[5]} | tee {output}"
+        "python -m pytest tests/qa -k _qa -vv --teams_fn {input[2]} --games_fn {input[3]} --stadiums_fn {input[4]} --stadiums_geo_fn {input[5]} | tee {output}"

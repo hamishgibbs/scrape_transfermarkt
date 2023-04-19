@@ -31,12 +31,14 @@ def parse_game_data(fn):
         if "List of goalscorers" in "".join([x.prettify() for x in td]):
             continue
 
+        date = td[9].find_all('a')[0].text.strip()
+        time = re.findall(r'(\d*:\d* \w*)', td[9].text)[0]
+
         game_data.append(
             {
                 "home_team": td[0].find_all('a')[-1].get("href").split("/")[1],
                 "away_team": td[7].find_all('a')[0].get("href").split("/")[1],
-                "date": td[9].find_all('a')[0].text.strip(),
-                "time": re.findall(r'(\d*:\d* \w*)', td[9].text)[0],
+                "date_time": datetime.strptime(date + " " + time, "%b %d, %Y %H:%M %p"),
                 "attendance": td[10].text.strip().split('\t')[0].replace(".", "").split(" ")[0]
             }
         )
