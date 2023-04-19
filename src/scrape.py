@@ -1,3 +1,4 @@
+import sys
 import requests
 
 def scrape(url, out_fn):
@@ -9,3 +10,6 @@ def scrape(url, out_fn):
     
     with open(out_fn, "w") as f:
         f.write(response.text)
+
+if __name__ == "__main__":
+    scrape(url=sys.argv[1], out_fn=sys.argv[-1])

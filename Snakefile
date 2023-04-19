@@ -1,3 +1,52 @@
+import pandas as pd
+
+team_urls = pd.read_csv("data/teams.csv")["url_stub"].to_list()
+seasons = [2016, 2017, 2018, 2019, 2020]
+
+def get_game_url(wildcards):
+    return f"https://www.transfermarkt.co.uk/{wildcards.team}/spielplandatum/verein/985/plus/1?saison_id={wildcards.season}&wettbewerb_id=&day=&heim_gast=&punkte=&datum_von=-&datum_bis=-"
+
+rule all:
+    input:
+        expand("data/games/clean/{team}_{season}.csv", team=team_urls, season=seasons)
+
+rule scrape_teams_data:
+    input:
+        "src/scrape.py"
+    output:
+        temporary("data/teams.html")
+    params:
+        url="https://www.transfermarkt.co.uk/premier-league/startseite/wettbewerb/GB1"
+    shell:
+        "python {input} {params.url} {output}"
+
+rule parse_teams_data:
+    input:
+        "src/parse_teams_data.py",
+        "data/teams.html"
+    output:
+        "data/teams.csv"
+    shell:
+        "python {input} {output}"
+
+rule scrape_game_data:
+    input:
+        "src/scrape.py"
+    output:
+        "data/games/html/{team}_{season}.html"
+    params:
+        url=get_game_url
+    shell:
+        "python {input} '{params.url}' {output}"
+
+rule parse_game_data:
+    input:
+        "src/parse_game_data.py",
+        "data/games/html/{team}_{season}.html"
+    output:
+        "data/games/clean/{team}_{season}.csv"
+    shell:
+        "python {input} {output}"
 
 rule update_test_data:
     input: 

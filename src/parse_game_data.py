@@ -1,3 +1,4 @@
+import sys
 import pandas as pd
 from datetime import datetime
 from parse import parse_table, parse_team_name
@@ -35,5 +36,9 @@ def parse_game_data(fn):
     
     df = pd.DataFrame.from_records(game_data)
 
-    print(df)
+    return df
+
+if __name__ == "__main__":
+    df = parse_game_data(sys.argv[1])
+    df.to_csv(sys.argv[-1], index=False)
 

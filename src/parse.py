@@ -12,4 +12,4 @@ def parse_table(fn):
 
     table = soup.find_all(class_="responsive-table")[0]
     
-    return table.find_all('tbody')[0].find_all('tr', class_=False)
+    return table.find_all('tbody')[0].find_all('tr')
