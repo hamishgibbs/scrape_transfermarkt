@@ -12,10 +12,15 @@ def parse_match_sheet(fn):
     soup = BeautifulSoup(html, "html.parser")
 
     stadium_p = soup.find_all("p", class_="sb-zusatzinfos")[0]
+
+    stadium_href = stadium_p.find_all('a')[0].get('href')
+
     stadium = {
         "match_sheet_id": os.path.basename(fn).split("_")[-1].split(".")[0],
         "stadium_name": stadium_p.find_all("a")[0].text.strip(),
-        "stadium_url": f"https://www.transfermarkt.co.uk{stadium_p.find_all('a')[0].get('href')}"
+        "stadium_url": f"https://www.transfermarkt.co.uk{stadium_href}",
+        "association": stadium_href.split("/")[-3],
+        "season": stadium_href.split("/")[-1]
     }
 
     df = pd.DataFrame.from_records([stadium])

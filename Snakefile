@@ -75,6 +75,16 @@ rule concat_games:
     shell:
         "python {input} {output}"
 
+rule games_qa:
+    input:
+        "tests/qa/test_games_qa.py",
+        "data/teams.csv",
+        "data/games.csv",
+    output:
+        "data/games_qa_success.txt"
+    shell:
+        "python -m pytest {input[0]} -vv --teams_fn {input[1]} --games_fn {input[2]} | tee {output}"
+
 def get_match_sheet_url(wildcards):
     return f"https://www.transfermarkt.co.uk/spielbericht/index/spielbericht/{wildcards.id}"
 
@@ -114,30 +124,35 @@ rule concat_match_sheets:
         pd.concat([pd.read_csv(fn) for fn in input]).to_csv(output[0], index=False)
 
 def get_stadium_url(wildcards):
-    return f"https://www.transfermarkt.co.uk/premier-league/stadien/wettbewerb/GB1/plus/?saison_id={wildcards.season}"
+    return f"https://www.transfermarkt.co.uk/stadion/stadion/verein/{wildcards.association}/saison_id/{wildcards.season}"
 
 rule scrape_stadiums:
     input:
-        "src/scrape.py"
+        "src/scrape.py",
+        "data/match_sheets.csv"
     output:
-        temporary("data/stadiums_{season}.html")
+        "data/stadium_{association}_{year}.html"
     params:
         url=get_stadium_url
     shell:
-        "python {input} {params.url} {output}"
+        "python {input[0]} {params.url} {output}"
 
 rule parse_stadiums:
     input:
         "src/parse_stadiums.py",
-        "data/stadiums_{year}.html"
+        "data/stadium_{association}_{year}.html"
     output:
-        temporary("data/stadiums_{year}.csv")
+        temporary("data/stadium_{association}_{year}.csv")
     shell:
         "python {input} {output}"
 
+def get_stadium_names():
+    teams = pd.read_csv("data/teams.csv")
+    return (teams["url_stub"] + "_" + teams["association"].astype(str)).to_list()
+
 rule concat_stadiums:
     input:
-        expand("data/stadiums_{season}.csv", season=seasons)
+        expand("data/stadium_{association_year}.csv", association_year=get_stadium_names())
     output:
         "data/stadiums.csv"
     run:
@@ -165,22 +180,9 @@ rule update_test_data:
         "'https://www.transfermarkt.co.uk/premier-league/startseite/wettbewerb/GB1'",
         "'https://www.transfermarkt.co.uk/tottenham-hotspur/spielplandatum/verein/148/plus/0?saison_id=2019&wettbewerb_id=&day=&heim_gast=&punkte=&datum_von=-&datum_bis=-'",
         "'https://www.transfermarkt.co.uk/spielbericht/index/spielbericht/3194823'",
-        "'https://www.transfermarkt.co.uk/premier-league/stadien/wettbewerb/GB1'"
+        "'https://www.transfermarkt.co.uk/stadion/stadion/verein/3299/saison_id/2015'"
     shell:
         "python {input} {params} {output}"
-
-rule qa:
-    input:
-        "tests/qa/test_games_qa.py",
-        "tests/qa/test_stadiums_qa.py",
-        "data/teams.csv",
-        "data/games.csv",
-        "data/stadiums.csv",
-        "data/geo/stadiums.geojson"
-    output:
-        "data/qa_success.txt"
-    shell:
-        "python -m pytest tests/qa -k _qa -vv --teams_fn {input[2]} --games_fn {input[3]} --stadiums_fn {input[4]} --stadiums_geo_fn {input[5]} | tee {output}"
 
 rule rulegraph:
     input:
