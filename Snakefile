@@ -2,13 +2,11 @@ import os
 import pandas as pd
 
 seasons = [2016, 2017, 2018, 2019, 2020]
-matchdays = range(1, 39)
 
 rule all:
     input:
         "data/qa_success.txt",
         "rulegraph.svg"
-
 
 def get_teams_url(wildcards):
     return f"https://www.transfermarkt.co.uk/premier-league/startseite/wettbewerb/GB1/plus/?saison_id={wildcards.season}"
@@ -41,30 +39,35 @@ rule concat_teams:
         pd.concat([pd.read_csv(fn) for fn in input]).drop_duplicates().to_csv(output[0], index=False)
 
 def get_game_url(wildcards):
-    return f"https://www.transfermarkt.co.uk/premier-league/spieltag/wettbewerb/GB1/saison_id/{wildcards.season}/spieltag/{wildcards.matchday}"
+    return f"https://www.transfermarkt.co.uk/{wildcards.team}/spielplandatum/verein/148/plus/0?saison_id={wildcards.season}&wettbewerb_id=&day=&heim_gast=&punkte=&datum_von=-&datum_bis=-"
 
 rule scrape_games:
     input:
-        "src/scrape.py"
+        "src/scrape.py",
+        "data/teams.csv"
     output:
-        temporary("data/games/html/season_{season}_matchday_{matchday}.html")
+        "data/games/html/{team}_{season}.html"
     params:
         url=get_game_url
     shell:
-        "python {input} '{params.url}' {output}"
+        "python {input[0]} '{params.url}' {output}"
 
 rule parse_games:
     input:
         "src/parse_games.py",
-        "data/games/html/season_{season}_matchday_{matchday}.html"
+        "data/games/html/{team}_{season}.html"
     output:
-        temporary("data/games/clean/season_{season}_matchday_{matchday}.csv")
+        temporary("data/games/clean/{team}_{season}.csv")
     shell:
         "python {input} {output}"
 
+def get_team_names():
+    teams = pd.read_csv("data/teams.csv")
+    return teams["url_stub"].to_list()
+
 rule concat_games:
     input:
-        expand("data/games/clean/season_{season}_matchday_{matchday}.csv", season=seasons, matchday=matchdays)
+        expand("data/games/clean/{team}_{season}.csv", team=get_team_names(), season=seasons)
     output:
         "data/games.csv"
     run:
