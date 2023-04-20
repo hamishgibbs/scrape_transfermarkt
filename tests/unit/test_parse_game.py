@@ -13,7 +13,7 @@ def test_parse_game_data():
         "away_team": "aston-villa",
         "attendance": 60407.0,
         "home_flag": "H",
-        "match_sheet_url": "3194823"
+        "match_sheet_id": "3194823"
     }, name=0)
 
     last_row_expected = pd.Series({
@@ -22,7 +22,7 @@ def test_parse_game_data():
         "away_team": "crystal-palace",
         "attendance": np.nan,
         "home_flag": "A",
-        "match_sheet_url": "3219104"
+        "match_sheet_id": "3219104"
     }, name=51)
 
     assert res.shape == (52, 6)
