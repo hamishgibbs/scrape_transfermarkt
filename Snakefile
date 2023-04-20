@@ -67,11 +67,13 @@ def get_team_names():
 
 rule concat_games:
     input:
+        "src/concat_games.py",
+        "data/teams.csv",
         expand("data/games/clean/{team_association}_{season}.csv", team_association=get_team_names(), season=seasons)
     output:
         "data/games.csv"
-    run:
-        pd.concat([pd.read_csv(fn) for fn in input]).to_csv(output[0], index=False)
+    shell:
+        "python {input} {output}"
 
 def get_match_sheet_url(wildcards):
     return f"https://www.transfermarkt.co.uk/spielbericht/index/spielbericht/{wildcards.id}"
