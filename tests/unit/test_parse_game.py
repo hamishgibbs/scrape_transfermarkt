@@ -1,25 +1,31 @@
 import pandas as pd
+import numpy as np
 from parse_games import parse_game_data
+from datetime import datetime
 
 def test_parse_game_data():
 
-    res = parse_game_data("tests/data/game_data.html")
+    res = parse_game_data("tests/data/tottenham-hotspur_game_data.html")
 
-    assert res.shape == (10, 4)
-    assert res.iloc[0]["home_team"] == "fc-liverpool"
-    assert res.iloc[-1]["away_team"] == "fc-chelsea"
-    assert res.iloc[4]["attendance"] == 19784
+    first_row_expected = pd.Series({
+        "date_time": datetime(2019, 8, 10, 17, 30),
+        "home_team": "tottenham-hotspur",
+        "away_team": "aston-villa",
+        "attendance": 60407.0,
+        "home_flag": "H",
+        "match_sheet_url": "/spielbericht/index/spielbericht/3194823"
+    }, name=0)
 
-def test_parse_game_data_removes_sold_out():
+    last_row_expected = pd.Series({
+        "date_time": datetime(2020, 7, 26, 16, 00),
+        "home_team": "tottenham-hotspur",
+        "away_team": "crystal-palace",
+        "attendance": np.nan,
+        "home_flag": "A",
+        "match_sheet_url": "/spielbericht/index/spielbericht/3219104"
+    }, name=51)
 
-    res = parse_game_data("tests/data/game_data_sold_out.html")
-    
-    assert res.shape == (10, 4)
-    assert res.iloc[7]["attendance"] == 11355
+    assert res.shape == (52, 6)
+    pd.testing.assert_series_equal(res.iloc[0, :], first_row_expected)
+    pd.testing.assert_series_equal(res.iloc[-1, :], last_row_expected)
 
-def test_parse_game_data_coerces_missing_values():
-
-    res = parse_game_data("tests/data/game_data_attendance_missing.html")
-    
-    assert res.shape == (10, 4)
-    assert pd.isna(res.iloc[0]["attendance"])

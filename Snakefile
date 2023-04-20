@@ -114,17 +114,13 @@ rule update_test_data:
     input: 
         "src/update_test_data.py"
     output:
-        "tests/data/game_data.html",
-        "tests/data/game_data_sold_out.html",
-        "tests/data/game_data_attendance_missing.html",
+        "tests/data/tottenham-hotspur_game_data.html",
         "tests/data/teams_data.html",
         "tests/data/stadium_data.html"
     params:
-        "https://www.transfermarkt.co.uk/premier-league/spieltag/wettbewerb/GB1/saison_id/2019/spieltag/1",
-        "https://www.transfermarkt.co.uk/premier-league/spieltag/wettbewerb/GB1/saison_id/2016/spieltag/1",
-        "https://www.transfermarkt.co.uk/premier-league/spieltag/wettbewerb/GB1/saison_id/2019/spieltag/30",
-        "https://www.transfermarkt.co.uk/premier-league/startseite/wettbewerb/GB1",
-        "https://www.transfermarkt.co.uk/premier-league/stadien/wettbewerb/GB1"
+        "'https://www.transfermarkt.co.uk/tottenham-hotspur/spielplandatum/verein/148/plus/0?saison_id=2019&wettbewerb_id=&day=&heim_gast=&punkte=&datum_von=-&datum_bis=-'",
+        "'https://www.transfermarkt.co.uk/premier-league/startseite/wettbewerb/GB1'",
+        "'https://www.transfermarkt.co.uk/premier-league/stadien/wettbewerb/GB1'"
     shell:
         "python {input} {params} {output}"
 
