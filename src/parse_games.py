@@ -42,7 +42,7 @@ def parse_game_data(fn):
                 "away_team": td[5].find_all('a')[0].get("href").split("/")[1],
                 "attendance": td[8].text.strip().replace(".", ""),
                 "home_flag": td[3].text.strip(),
-                "match_sheet_url": td[9].find_all('a')[0].get("href")
+                "match_sheet_url": td[9].find_all('a')[0].get("href").split("/")[-1]
             }
         )
         
