@@ -30,8 +30,8 @@ def parse_game_data(fn):
         game_data.append(
             {   
                 "date_time": datetime.strptime(date + " " + time, "%d.%m.%y %H:%M"),
-                "home_team": os.path.basename(fn).split("_")[0],
-                "away_team": td[5].find_all('a')[0].get("href").split("/")[1],
+                "team_1": os.path.basename(fn).split("_")[0],
+                "team_2": td[5].find_all('a')[0].get("href").split("/")[1],
                 "attendance": td[8].text.strip().replace(".", ""),
                 "home_flag": td[3].text.strip(),
                 "match_sheet_id": td[9].find_all('a')[0].get("href").split("/")[-1]

@@ -1,31 +1,31 @@
-name,url_stub
-Chelsea FC,fc-chelsea
-Manchester City,manchester-city
-Arsenal FC,fc-arsenal
-Manchester United,manchester-united
-Liverpool FC,fc-liverpool
-Tottenham Hotspur,tottenham-hotspur
-Everton FC,fc-everton
-Southampton FC,fc-southampton
-West Ham United,west-ham-united
-Newcastle United,newcastle-united
-Leicester City,leicester-city
-Stoke City,stoke-city
-Swansea City,swansea-city
-Watford FC,fc-watford
-Crystal Palace,crystal-palace
-Aston Villa,aston-villa
-Norwich City,norwich-city
-West Bromwich Albion,west-bromwich-albion
-Sunderland AFC,afc-sunderland
-AFC Bournemouth,afc-bournemouth
-Hull City,hull-city
-Middlesbrough FC,fc-middlesbrough
-Burnley FC,fc-burnley
-Brighton & Hove Albion,brighton-amp-hove-albion
-Huddersfield Town,huddersfield-town
-Wolverhampton Wanderers,wolverhampton-wanderers
-Fulham FC,fc-fulham
-Cardiff City,cardiff-city
-Sheffield United,sheffield-united
-Leeds United,leeds-united
+name,url_stub,association
+Chelsea FC,fc-chelsea,631
+Manchester City,manchester-city,281
+Arsenal FC,fc-arsenal,11
+Manchester United,manchester-united,985
+Liverpool FC,fc-liverpool,31
+Tottenham Hotspur,tottenham-hotspur,148
+Everton FC,fc-everton,29
+Southampton FC,fc-southampton,180
+West Ham United,west-ham-united,379
+Newcastle United,newcastle-united,762
+Leicester City,leicester-city,1003
+Stoke City,stoke-city,512
+Swansea City,swansea-city,2288
+Watford FC,fc-watford,1010
+Crystal Palace,crystal-palace,873
+Aston Villa,aston-villa,405
+Norwich City,norwich-city,1123
+West Bromwich Albion,west-bromwich-albion,984
+Sunderland AFC,afc-sunderland,289
+AFC Bournemouth,afc-bournemouth,989
+Hull City,hull-city,3008
+Middlesbrough FC,fc-middlesbrough,641
+Burnley FC,fc-burnley,1132
+Brighton & Hove Albion,brighton-amp-hove-albion,1237
+Huddersfield Town,huddersfield-town,1110
+Wolverhampton Wanderers,wolverhampton-wanderers,543
+Fulham FC,fc-fulham,931
+Cardiff City,cardiff-city,603
+Sheffield United,sheffield-united,350
+Leeds United,leeds-united,399
