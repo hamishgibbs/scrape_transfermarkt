@@ -5,13 +5,6 @@ import pandas as pd
 from datetime import datetime
 from bs4 import BeautifulSoup
 
-def parse_date_time(date, time):
-    return datetime.strptime(date.split(" ")[-1] + " " + time, 
-                      "%d.%m.%y %H:%M")
-
-def parse_score(td):
-    return td.find_all('span')[0].text.strip().split(":")
-
 def parse_game_data(fn):
 
     with open(fn, "r") as f:
