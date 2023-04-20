@@ -73,6 +73,41 @@ rule concat_games:
     run:
         pd.concat([pd.read_csv(fn) for fn in input]).to_csv(output[0], index=False)
 
+def get_match_sheet_url(wildcards):
+    return f"https://www.transfermarkt.co.uk/spielbericht/index/spielbericht/{wildcards.id}"
+
+rule scrape_match_sheets:
+    input:
+        "src/scrape.py",
+        "data/games.csv"
+    output:
+        "data/match_sheets/html/match_sheet_{id}.html"
+    params:
+        url=get_match_sheet_url
+    shell:
+        "python {input[0]} '{params.url}' {output}"
+
+rule parse_match_sheets:
+    input:
+        "src/parse_games.py",
+        "data/match_sheets/html/match_sheet_{id}.html"
+    output:
+        temporary("data/match_sheets/clean/match_sheet_{id}.csv")
+    shell:
+        "python {input} {output}"
+
+def get_match_sheet_ids():
+    teams = pd.read_csv("data/games.csv")
+    return teams["match_sheet_id"].to_list()
+
+rule concat_match_sheets:
+    input:
+        expand("data/match_sheets/clean/match_sheet_{id}.csv", id=get_match_sheet_ids())
+    output:
+        "data/games.csv"
+    run:
+        pd.concat([pd.read_csv(fn) for fn in input]).to_csv(output[0], index=False)
+
 def get_stadium_url(wildcards):
     return f"https://www.transfermarkt.co.uk/premier-league/stadien/wettbewerb/GB1/plus/?saison_id={wildcards.season}"
 
@@ -117,12 +152,14 @@ rule update_test_data:
     input: 
         "src/update_test_data.py"
     output:
-        "tests/data/tottenham-hotspur_game_data.html",
         "tests/data/teams_data.html",
+        "tests/data/tottenham-hotspur_game_data.html",
+        "tests/data/match_sheet_data.html",
         "tests/data/stadium_data.html"
     params:
-        "'https://www.transfermarkt.co.uk/tottenham-hotspur/spielplandatum/verein/148/plus/0?saison_id=2019&wettbewerb_id=&day=&heim_gast=&punkte=&datum_von=-&datum_bis=-'",
         "'https://www.transfermarkt.co.uk/premier-league/startseite/wettbewerb/GB1'",
+        "'https://www.transfermarkt.co.uk/tottenham-hotspur/spielplandatum/verein/148/plus/0?saison_id=2019&wettbewerb_id=&day=&heim_gast=&punkte=&datum_von=-&datum_bis=-'",
+        "'https://www.transfermarkt.co.uk/spielbericht/index/spielbericht/3194823'",
         "'https://www.transfermarkt.co.uk/premier-league/stadien/wettbewerb/GB1'"
     shell:
         "python {input} {params} {output}"
