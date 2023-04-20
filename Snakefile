@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 
-seasons = [2016, 2017, 2018, 2019, 2020]
+seasons = [2015, 2016, 2017, 2018, 2019, 2020]
 
 rule all:
     input:
@@ -89,7 +89,7 @@ rule scrape_match_sheets:
 
 rule parse_match_sheets:
     input:
-        "src/parse_games.py",
+        "src/parse_match_sheet.py",
         "data/match_sheets/html/match_sheet_{id}.html"
     output:
         temporary("data/match_sheets/clean/match_sheet_{id}.csv")
@@ -97,14 +97,17 @@ rule parse_match_sheets:
         "python {input} {output}"
 
 def get_match_sheet_ids():
-    teams = pd.read_csv("data/games.csv")
-    return teams["match_sheet_id"].to_list()
+    fn = "data/games.csv"
+    if os.path.exists(fn):
+        return pd.read_csv("data/games.csv")["match_sheet_id"].to_list()
+    else:
+        return []
 
 rule concat_match_sheets:
     input:
         expand("data/match_sheets/clean/match_sheet_{id}.csv", id=get_match_sheet_ids())
     output:
-        "data/games.csv"
+        "data/match_sheets.csv"
     run:
         pd.concat([pd.read_csv(fn) for fn in input]).to_csv(output[0], index=False)
 
@@ -154,7 +157,7 @@ rule update_test_data:
     output:
         "tests/data/teams_data.html",
         "tests/data/tottenham-hotspur_game_data.html",
-        "tests/data/match_sheet_data.html",
+        "tests/data/match_sheet_data_3194823.html",
         "tests/data/stadium_data.html"
     params:
         "'https://www.transfermarkt.co.uk/premier-league/startseite/wettbewerb/GB1'",
