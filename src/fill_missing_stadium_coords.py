@@ -9,12 +9,12 @@ def main():
 
     missing_coord_lu.set_index("name", inplace=True)
 
-    missing_stadius = stadiums[pd.isna(stadiums["x"])]
+    missing_stadiums = stadiums[pd.isna(stadiums["x"])]
     
-    missing_stadius.loc[:, "x"] = missing_coord_lu.loc[missing_stadius["name"], "x"].to_list()
-    missing_stadius.loc[:, "y"] = missing_coord_lu.loc[missing_stadius["name"], "y"].to_list()
+    missing_stadiums.loc[:, "x"] = missing_coord_lu.loc[missing_stadiums["name"], "x"].to_list()
+    missing_stadiums.loc[:, "y"] = missing_coord_lu.loc[missing_stadiums["name"], "y"].to_list()
 
-    stadiums = pd.concat([stadiums[~pd.isna(stadiums["x"])], missing_stadius])
+    stadiums = pd.concat([stadiums[~pd.isna(stadiums["x"])], missing_stadiums])
 
     # Drop stadiums outside the UK based on OSGB bounding box: https://epsg.io/27700
     stadiums[(stadiums["x"] > -9) & (stadiums["x"] < 2.01)]
