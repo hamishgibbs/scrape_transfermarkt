@@ -222,16 +222,6 @@ rule rulegraph:
     input:
         "Snakefile"
     output:
-        temporary("rulegraph_raw.svg")
-    shell:
-        "snakemake --rulegraph | dot -Tsvg > {output}"
-
-rule rulegraph_links:
-    input:
-        "src/rulegraph_links.py",
-        "Snakefile",
-        "rulegraph_raw.svg"
-    output:
         "rulegraph.svg"
     shell:
-        "python {input} {output}"
+        "snakemake --rulegraph | dot -Tsvg > {output}"
