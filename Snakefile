@@ -190,7 +190,7 @@ rule join_games_stadiums:
     shell:
         "python {input} {output}"
 
-rule scrape_stadiums_geo:
+rule scrape_stadiums_osm:
     input:
         "src/osm_stadiums.R",
         "data/stadiums.csv",
