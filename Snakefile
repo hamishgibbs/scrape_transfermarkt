@@ -5,7 +5,7 @@ seasons = [2015, 2016, 2017, 2018, 2019, 2020]
 
 rule all:
     input:
-        "data/qa_success.txt",
+        "data/games.csv",
         "rulegraph.svg"
 
 def get_teams_url(wildcards):
@@ -71,7 +71,7 @@ rule concat_games:
         "data/teams.csv",
         expand("data/games/clean/{team_association}_{season}.csv", team_association=get_team_names(), season=seasons)
     output:
-        "data/games_concat.csv"
+        temporary("data/games_concat.csv")
     shell:
         "python {input} {output}"
 
@@ -147,9 +147,12 @@ rule parse_stadiums:
         "python {input} {output}"
 
 def get_stadium_names():
-    match_sheets = pd.read_csv("data/match_sheets.csv")
-    return (match_sheets["association"].astype(str) + "_" + match_sheets["season"].astype(str)).to_list()
-
+    fn = "data/match_sheets.csv"
+    if os.path.exists(fn):
+        return pd.read_csv(fn)["match_sheet_id"].to_list()
+    else:
+        return []
+ 
 rule concat_stadiums:
     input:
         expand("data/stadiums/clean/stadium_{association_season}.csv", association_season=get_stadium_names())
@@ -168,16 +171,16 @@ rule fill_missing_stadium_coords:
     shell:
         "python {input} {output}"
 
-rule fill_missing_stadium_coords:
+rule join_games_stadiums:
     input:
         "src/join_games_stadiums.py",
         "data/games_concat.csv",
+        "data/match_sheets.csv",
         "data/stadiums.csv"
     output:
         "data/games.csv"
     shell:
         "python {input} {output}"
-
 
 rule scrape_stadiums_geo:
     input:
