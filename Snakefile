@@ -6,6 +6,7 @@ seasons = [2015, 2016, 2017, 2018, 2019, 2020]
 rule all:
     input:
         "output/games.csv",
+        "output/stadiums.geojson",
         "rulegraph.svg"
 
 def get_teams_url(wildcards):
@@ -195,7 +196,7 @@ rule scrape_stadiums_geo:
         "data/stadiums.csv",
         "data/geo/osm_stadium_name_lookup.csv"
     output:
-        "data/geo/stadiums.geojson"
+        "output/stadiums.geojson"
     shell:
         "Rscript {input} {output}"
 

@@ -40,10 +40,7 @@ for (i in 1:nrow(stadiums)) {
   buffer <- 1000 / 111139
   stadium_bbox <- stadium_bbox + c(-buffer, -buffer, buffer, buffer)
   
-  
-  st_bbox(stadiums[i, ])
-  
-  osm_features <- opq(bbox = paste0(stadiums[i, "city"], ", UK")) %>%
+  osm_features <- opq(bbox = stadium_bbox) %>%
     add_osm_feature(key = stadiums$key[i], value = stadiums$value[i]) %>% 
     osmdata_sf()
   
@@ -56,7 +53,7 @@ for (i in 1:nrow(stadiums)) {
     stadium_geo <- stadium_multi_polygon
   }
   
-  validation_fn <- paste0("data/geo/validation/", stadiums[i, "osm_name"], ".png")
+  validation_fn <- paste0("data/geo/validation/", stadiums$osm_name[i], ".png")
   
   p <- ggplot() + 
     geom_sf(data=stadium_geo)
@@ -65,18 +62,10 @@ for (i in 1:nrow(stadiums)) {
   
   stadium_geo <- stadium_geo[, c("osm_id", "name")]
   
-  stadium_geo$association <- stadiums$association[i]
-  stadium_geo$season <- stadiums$season[i]
-  stadium_geo$city <- stadiums$city[i]
-  stadium_geo$capacity <- stadiums$capacity[i]
-  stadium_geo$seats <- stadiums$seats[i]
+  stadium_geo$orig_name <- stadiums$name[i]
   
-  stadiums_geo[[i]] <- stadium_geo[, c("osm_id", "name", "association", "season", "city", "capacity", "seats")]
+  stadiums_geo[[i]] <- stadium_geo[, c("osm_id", "name", "orig_name")]
   
 }
 
 st_write(do.call(rbind, stadiums_geo), tail(.args, 1), delete_dsn = T)
-
-opq(bbox = st_bbox(rnaturalearth::ne_states("United Kingdom", returnclass = "sf")[1, ])) %>%
-  add_osm_feature(key = "leisure", value = "stadium") %>% 
-  osmdata_sf()
