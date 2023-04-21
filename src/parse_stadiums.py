@@ -19,7 +19,13 @@ def parse_stadium_data(fn):
 
     script = " ".join([x.text for x in soup.find_all("script")])
 
-    coordinates = re.findall(r'koordinaten=\[(.*?)]', script)[0]
+    coordinates = re.findall(r'koordinaten=\[(.*?)]', script)
+    if coordinates:
+        x = coordinates[0].split(",")[0].strip()
+        y = coordinates[0].split(",")[1].strip()
+    else:
+        x = None
+        y = None
     
     stadium_data = {
         "association": os.path.basename(fn).split("_")[-2],
@@ -27,8 +33,8 @@ def parse_stadium_data(fn):
         "name": rows[0].find_all("td")[0].text.strip(),
         "capacity": rows[1].find_all("td")[0].text.strip().replace(".", ""),
         "seats": rows[3].find_all("td")[0].text.strip().replace(".", ""),
-        "x": coordinates.split(",")[0].strip(),
-        "y": coordinates.split(",")[1].strip()
+        "x": x,
+        "y": y
     }
     
     df = pd.DataFrame.from_records([stadium_data])

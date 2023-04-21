@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from parse_stadiums import parse_stadium_data
 
 def test_parse_stadium_data():
@@ -18,16 +19,16 @@ def test_parse_stadium_data():
     assert res.shape == (1, 7)
     pd.testing.assert_series_equal(res.iloc[0, :], expected)
 
-    res = parse_stadium_data("tests/data/stadium_data_631_2015.html")
+    res = parse_stadium_data("tests/data/stadium_data_3008_2018.html")
 
     expected = pd.Series({
-        "association": "631",
-        "season": "2015",
-        "name": "Stamford Bridge",
-        "capacity": 40853,
-        "seats": 40853,
-        "x": -0.1909565,
-        "y": 51.481663
+        "association": "3008",
+        "season": "2018",
+        "name": "MKM Stadium",
+        "capacity": 25586,
+        "seats": 25586,
+        "x": np.nan,
+        "y": np.nan
     }, name=0)
 
     assert res.shape == (1, 7)

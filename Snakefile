@@ -71,7 +71,7 @@ rule concat_games:
         "data/teams.csv",
         expand("data/games/clean/{team_association}_{season}.csv", team_association=get_team_names(), season=seasons)
     output:
-        "data/games.csv"
+        "data/games_concat.csv"
     shell:
         "python {input} {output}"
 
@@ -79,7 +79,7 @@ rule games_qa:
     input:
         "tests/qa/test_games_qa.py",
         "data/teams.csv",
-        "data/games.csv",
+        "data/games_concat.csv",
     output:
         "data/games_qa_success.txt"
     shell:
@@ -91,7 +91,7 @@ def get_match_sheet_url(wildcards):
 rule scrape_match_sheets:
     input:
         "src/scrape.py",
-        "data/games.csv"
+        "data/games_concat.csv"
     output:
         "data/match_sheets/html/match_sheet_{id}.html"
     params:
@@ -109,9 +109,9 @@ rule parse_match_sheets:
         "python {input} {output}"
 
 def get_match_sheet_ids():
-    fn = "data/games.csv"
+    fn = "data/games_concat.csv"
     if os.path.exists(fn):
-        return pd.read_csv("data/games.csv")["match_sheet_id"].to_list()
+        return pd.read_csv("data/games_concat.csv")["match_sheet_id"].to_list()
     else:
         return []
 
@@ -154,9 +154,30 @@ rule concat_stadiums:
     input:
         expand("data/stadiums/clean/stadium_{association_season}.csv", association_season=get_stadium_names())
     output:
-        "data/stadiums.csv"
+        temporary("data/stadiums_concat.csv")
     run:
         pd.concat([pd.read_csv(fn) for fn in input]).drop_duplicates().to_csv(output[0], index=False)
+
+rule fill_missing_stadium_coords:
+    input:
+        "src/fill_missing_stadium_coords.py",
+        "data/stadiums_concat.csv",
+        "data/geo/stadium_missing_coord_lookup.csv"
+    output:
+        "data/stadiums.csv"
+    shell:
+        "python {input} {output}"
+
+rule fill_missing_stadium_coords:
+    input:
+        "src/join_games_stadiums.py",
+        "data/games_concat.csv",
+        "data/stadiums.csv"
+    output:
+        "data/games.csv"
+    shell:
+        "python {input} {output}"
+
 
 rule scrape_stadiums_geo:
     input:
@@ -176,13 +197,13 @@ rule update_test_data:
         "tests/data/tottenham-hotspur_game_data.html",
         "tests/data/match_sheet_data_3194823.html",
         "tests/data/stadium_data_3299_2015.html",
-        "tests/data/stadium_data_631_2015.html"
+        "tests/data/stadium_data_3008_2018.html"
     params:
         "'https://www.transfermarkt.co.uk/premier-league/startseite/wettbewerb/GB1'",
         "'https://www.transfermarkt.co.uk/tottenham-hotspur/spielplandatum/verein/148/plus/0?saison_id=2019&wettbewerb_id=&day=&heim_gast=&punkte=&datum_von=-&datum_bis=-'",
         "'https://www.transfermarkt.co.uk/spielbericht/index/spielbericht/3194823'",
         "'https://www.transfermarkt.co.uk/stadion/stadion/verein/3299/saison_id/2015'",
-        "'https://www.transfermarkt.co.uk/stadion/stadion/verein/631/saison_id/2015'"
+        "'https://www.transfermarkt.co.uk/stadion/stadion/verein/3008/saison_id/2018'"
     shell:
         "python {input} {params} {output}"
 
