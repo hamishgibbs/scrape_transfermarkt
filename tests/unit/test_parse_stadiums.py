@@ -3,23 +3,33 @@ from parse_stadiums import parse_stadium_data
 
 def test_parse_stadium_data():
 
-    res = parse_stadium_data("tests/data/stadium_data.html")
+    res = parse_stadium_data("tests/data/stadium_data_3299_2015.html")
 
-    assert res.shape == (20, 5)
-    assert res.iloc[0]["team"] == "manchester-united"
-    assert res.iloc[0]["name"] == "Old Trafford"
-    assert res.iloc[0]["city"] == "Manchester"
-    assert res.iloc[0]["capacity"] == 74879
-    assert res.iloc[0]["seats"] == 74879
+    expected = pd.Series({
+        "association": "3299",
+        "season": "2015",
+        "name": "Wembley Stadium",
+        "capacity": 90000,
+        "seats": 90000,
+        "x": -0.2795188,
+        "y": 51.5560208
+    }, name=0)
 
-    assert res.iloc[-1]["team"] == "afc-bournemouth"
-    assert res.iloc[-1]["name"] == "Vitality Stadium"
-    assert res.iloc[-1]["city"] == "Bournemouth"
-    assert res.iloc[-1]["capacity"] == 11329
-    assert res.iloc[-1]["seats"] == 11329
+    assert res.shape == (1, 7)
+    pd.testing.assert_series_equal(res.iloc[0, :], expected)
 
-def test_parse_stadium_data_replaces_null():
+    res = parse_stadium_data("tests/data/stadium_data_631_2015.html")
 
-    res = parse_stadium_data("tests/data/stadium_data.html")
+    expected = pd.Series({
+        "association": "631",
+        "season": "2015",
+        "name": "Stamford Bridge",
+        "capacity": 40853,
+        "seats": 40853,
+        "x": -0.1909565,
+        "y": 51.481663
+    }, name=0)
 
-    assert pd.isna(res.iloc[-2]["seats"])
+    assert res.shape == (1, 7)
+    pd.testing.assert_series_equal(res.iloc[0, :], expected)
+

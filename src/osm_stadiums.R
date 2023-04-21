@@ -20,6 +20,8 @@ osm_name_lu <- fread(.args[2])
 
 stadiums[osm_name_lu, on="name", osm_name := osm_name]
 
+stadiums <- stadiums[!stadiums$osm_name == ""]
+
 stadiums$key <- 'leisure'
 stadiums$value <- 'stadium'
 
@@ -54,14 +56,20 @@ for (i in 1:nrow(stadiums)) {
   
   stadium_geo <- stadium_geo[, c("osm_id", "name")]
   
-  stadium_geo$team <- stadiums$team[i]
+  stadium_geo$association <- stadiums$association[i]
+  stadium_geo$season <- stadiums$season[i]
   stadium_geo$city <- stadiums$city[i]
   stadium_geo$capacity <- stadiums$capacity[i]
   stadium_geo$seats <- stadiums$seats[i]
   
-  stadiums_geo[[i]] <- stadium_geo[, c("osm_id", "name", "team", "city", "capacity", "seats")]
+  stadiums_geo[[i]] <- stadium_geo[, c("osm_id", "name", "association", "season", "city", "capacity", "seats")]
   
 }
 
 st_write(do.call(rbind, stadiums_geo), tail(.args, 1), delete_dsn = T)
 
+stad <- opq(bbox = "Stamford Bridge Fulham Road SW6 1HS London England") %>%
+  add_osm_feature(key = "leisure", value = "stadium") %>% 
+  osmdata_sf()
+
+stad

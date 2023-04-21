@@ -1,31 +1,187 @@
-team,name,city,capacity,seats
-manchester-united,Old Trafford,Manchester,74879,74879.0
-west-ham-united,London Stadium,London,62500,62500.0
-tottenham-hotspur,Tottenham Hotspur Stadium,London,62062,
-fc-arsenal,Emirates Stadium,London,60704,60704.0
-manchester-city,Etihad Stadium,Manchester,55017,55017.0
-fc-liverpool,Anfield,Liverpool,54074,54074.0
-afc-sunderland,Stadium of Light,Sunderland,48707,48707.0
-fc-chelsea,Stamford Bridge,London,40853,40853.0
-fc-everton,Goodison Park,Liverpool,39571,39571.0
-fc-middlesbrough,Riverside Stadium,Middlesbrough,33746,33746.0
-fc-southampton,St Mary's Stadium,Southampton,32384,32384.0
-leicester-city,King Power Stadium,Leicester,32273,32273.0
-stoke-city,bet365 Stadium,Stoke-on-Trent,30089,30089.0
-west-bromwich-albion,The Hawthorns,West Bromwich,26850,26850.0
-crystal-palace,Selhurst Park,London,26047,26047.0
-hull-city,MKM Stadium,Hull,25586,25586.0
-fc-burnley,Turf Moor,Burnley,21994,21994.0
-fc-watford,Vicarage Road,Watford,21577,21577.0
-swansea-city,Swansea.com Stadium,Swansea,21088,21088.0
-afc-bournemouth,Vitality Stadium,Bournemouth,11329,11329.0
-newcastle-united,St James' Park,Newcastle upon Tyne,52338,52338.0
-brighton-amp-hove-albion,AMEX Stadium,Brighton,31800,31800.0
-huddersfield-town,John Smith's Stadium,Huddersfield,24500,24500.0
-cardiff-city,Cardiff City Stadium,Cardiff,33280,33280.0
-wolverhampton-wanderers,Molineux Stadium,Wolverhampton,32050,32050.0
-fc-fulham,Craven Cottage,London,22384,22384.0
-aston-villa,Villa Park,Birmingham,42682,42682.0
-sheffield-united,Bramall Lane,Sheffield,32702,32702.0
-norwich-city,Carrow Road,Norwich,27244,27244.0
-leeds-united,Elland Road,Leeds,37890,37890.0
+association,season,name,capacity,seats,city
+3299,2015,Wembley Stadium,90000,90000.0,London
+631,2015,Stamford Bridge,40853,40853.0,Fulham Road
+281,2015,Etihad Stadium,55017,55017.0,Rowsley Street
+984,2015,The Hawthorns,26850,26850.0,Halfords Lane
+29,2015,Goodison Park,39571,39571.0,Goodison Road
+762,2015,St James' Park,52338,52338.0,Barrack Road
+379,2015,London Stadium,62500,2011.0,Queen Elizabeth Olympic Park
+512,2015,bet365 Stadium,30089,30089.0,Stanley Matthews Way
+148,2015,Tottenham Hotspur Stadium,62062,,782 High Road
+1003,2015,King Power Stadium,32273,32273.0,Filbert Way
+985,2015,Old Trafford,74879,74879.0,"Sir Matt Busby Way, Old Trafford"
+873,2015,Selhurst Park,26047,26047.0,Whitehorse Lane
+11,2015,Emirates Stadium,60704,60704.0,Hornsey Road
+1010,2015,Vicarage Road,21577,21577.0,Vicarage Road
+180,2015,St Mary's Stadium,32384,32384.0,Britannia Road
+1123,2015,Carrow Road,27244,27244.0,Carrow Road
+405,2015,Villa Park,42682,,Trinity Road
+2288,2015,Swansea.com Stadium,21088,21088.0,Landore
+989,2015,Vitality Stadium,11329,11329.0,Kings Park
+289,2015,Stadium of Light,48707,48707.0,Stadium Of Light
+31,2015,Anfield,54074,54074.0,Anfield Road
+631,2016,Stamford Bridge,40853,40853.0,Fulham Road
+1010,2016,Vicarage Road,21577,21577.0,Vicarage Road
+2288,2016,Swansea.com Stadium,21088,21088.0,Landore
+1003,2016,King Power Stadium,32273,32273.0,Filbert Way
+11,2016,Emirates Stadium,60704,60704.0,Hornsey Road
+3008,2016,MKM Stadium,25586,25586.0,West Park
+379,2016,London Stadium,62500,2011.0,Queen Elizabeth Olympic Park
+180,2016,St Mary's Stadium,32384,32384.0,Britannia Road
+641,2016,Riverside Stadium,33746,-1.0,Riverside Stadium
+281,2016,Etihad Stadium,55017,55017.0,Rowsley Street
+289,2016,Stadium of Light,48707,48707.0,Stadium Of Light
+873,2016,Selhurst Park,26047,26047.0,Whitehorse Lane
+148,2016,Tottenham Hotspur Stadium,62062,,782 High Road
+31,2016,Anfield,54074,54074.0,Anfield Road
+1132,2016,Turf Moor,21994,21994.0,Harry Potts Way
+543,2016,Molineux Stadium,32050,32050.0,Waterloo Road
+512,2016,bet365 Stadium,30089,30089.0,Stanley Matthews Way
+989,2016,Vitality Stadium,11329,11329.0,Kings Park
+985,2016,Old Trafford,74879,74879.0,"Sir Matt Busby Way, Old Trafford"
+3299,2016,Wembley Stadium,90000,90000.0,London
+29,2016,Goodison Park,39571,39571.0,Goodison Road
+984,2016,The Hawthorns,26850,26850.0,Halfords Lane
+3299,2017,Wembley Stadium,90000,90000.0,London
+631,2017,Stamford Bridge,40853,40853.0,Fulham Road
+1003,2017,King Power Stadium,32273,32273.0,Filbert Way
+512,2017,bet365 Stadium,30089,30089.0,Stanley Matthews Way
+873,2017,Selhurst Park,26047,26047.0,Whitehorse Lane
+989,2017,Vitality Stadium,11329,11329.0,Kings Park
+984,2017,The Hawthorns,26850,26850.0,Halfords Lane
+31,2017,Anfield,54074,54074.0,Anfield Road
+379,2017,London Stadium,62500,2011.0,Queen Elizabeth Olympic Park
+1110,2017,John Smith's Stadium,24500,24500.0,Stadium Way
+29,2017,Goodison Park,39571,39571.0,Goodison Road
+11,2017,Emirates Stadium,60704,60704.0,Hornsey Road
+1123,2017,Carrow Road,27244,27244.0,Carrow Road
+1237,2017,AMEX Stadium,31800,31800.0,Village Way
+1010,2017,Vicarage Road,21577,21577.0,Vicarage Road
+985,2017,Old Trafford,74879,74879.0,"Sir Matt Busby Way, Old Trafford"
+281,2017,Etihad Stadium,55017,55017.0,Rowsley Street
+180,2017,St Mary's Stadium,32384,32384.0,Britannia Road
+1132,2017,Turf Moor,21994,21994.0,Harry Potts Way
+2288,2017,Swansea.com Stadium,21088,21088.0,Landore
+762,2017,St James' Park,52338,52338.0,Barrack Road
+3299,2018,Wembley Stadium,90000,90000.0,London
+1110,2018,John Smith's Stadium,24500,24500.0,Stadium Way
+631,2018,Stamford Bridge,40853,40853.0,Fulham Road
+762,2018,St James' Park,52338,52338.0,Barrack Road
+379,2018,London Stadium,62500,2011.0,Queen Elizabeth Olympic Park
+31,2018,Anfield,54074,54074.0,Anfield Road
+180,2018,St Mary's Stadium,32384,32384.0,Britannia Road
+1132,2018,Turf Moor,21994,21994.0,Harry Potts Way
+543,2018,Molineux Stadium,32050,32050.0,Waterloo Road
+1237,2018,AMEX Stadium,31800,31800.0,Village Way
+1010,2018,Vicarage Road,21577,21577.0,Vicarage Road
+873,2018,Selhurst Park,26047,26047.0,Whitehorse Lane
+11,2018,Emirates Stadium,60704,60704.0,Hornsey Road
+989,2018,Vitality Stadium,11329,11329.0,Kings Park
+281,2018,Etihad Stadium,55017,55017.0,Rowsley Street
+931,2018,Craven Cottage,22384,22384.0,Stevenage Road
+29,2018,Goodison Park,39571,39571.0,Goodison Road
+603,2018,Cardiff City Stadium,33280,33280.0,Leckwith Road
+985,2018,Old Trafford,74879,74879.0,"Sir Matt Busby Way, Old Trafford"
+1003,2018,King Power Stadium,32273,32273.0,Filbert Way
+8605,2018,Baku Olympic Stadium,69870,69870.0,H. Aliyev Ave. 323
+985,2019,Old Trafford,74879,74879.0,"Sir Matt Busby Way, Old Trafford"
+114,2019,Vodafone Park,42590,42590.0,Vişnezade Mahallesi Kadırgalar Caddesi No: 1
+631,2019,Stamford Bridge,40853,40853.0,Fulham Road
+1123,2019,Carrow Road,27244,27244.0,Carrow Road
+543,2019,Molineux Stadium,32050,32050.0,Waterloo Road
+180,2019,St Mary's Stadium,32384,32384.0,Britannia Road
+1132,2019,Turf Moor,21994,21994.0,Harry Potts Way
+1010,2019,Vicarage Road,21577,21577.0,Vicarage Road
+281,2019,Etihad Stadium,55017,55017.0,Rowsley Street
+29,2019,Goodison Park,39571,39571.0,Goodison Road
+148,2019,Tottenham Hotspur Stadium,62062,,782 High Road
+11,2019,Emirates Stadium,60704,60704.0,Hornsey Road
+1237,2019,AMEX Stadium,31800,31800.0,Village Way
+762,2019,St James' Park,52338,52338.0,Barrack Road
+3008,2019,MKM Stadium,25586,25586.0,West Park
+1003,2019,King Power Stadium,32273,32273.0,Filbert Way
+989,2019,Vitality Stadium,11329,11329.0,Kings Park
+405,2019,Villa Park,42682,,Trinity Road
+379,2019,London Stadium,62500,2011.0,Queen Elizabeth Olympic Park
+873,2019,Selhurst Park,26047,26047.0,Whitehorse Lane
+350,2019,Bramall Lane,32702,,Bramall Lane
+3299,2019,Wembley Stadium,90000,90000.0,London
+31,2019,Anfield,54074,54074.0,Anfield Road
+1237,2020,AMEX Stadium,31800,31800.0,Village Way
+631,2020,Stamford Bridge,40853,40853.0,Fulham Road
+984,2020,The Hawthorns,26850,26850.0,Halfords Lane
+148,2020,Tottenham Hotspur Stadium,62062,,782 High Road
+985,2020,Old Trafford,74879,74879.0,"Sir Matt Busby Way, Old Trafford"
+1132,2020,Turf Moor,21994,21994.0,Harry Potts Way
+762,2020,St James' Park,52338,52338.0,Barrack Road
+29,2020,Goodison Park,39571,39571.0,Goodison Road
+543,2020,Molineux Stadium,32050,32050.0,Waterloo Road
+11,2020,Emirates Stadium,60704,60704.0,Hornsey Road
+931,2020,Craven Cottage,22384,22384.0,Stevenage Road
+1003,2020,King Power Stadium,32273,32273.0,Filbert Way
+350,2020,Bramall Lane,32702,,Bramall Lane
+180,2020,St Mary's Stadium,32384,32384.0,Britannia Road
+31,2020,Anfield,54074,54074.0,Anfield Road
+399,2020,Elland Road,37890,37890.0,Elland Road
+873,2020,Selhurst Park,26047,26047.0,Whitehorse Lane
+3299,2020,Wembley Stadium,90000,90000.0,London
+379,2020,London Stadium,62500,2011.0,Queen Elizabeth Olympic Park
+281,2020,Etihad Stadium,55017,55017.0,Rowsley Street
+405,2020,Villa Park,42682,,Trinity Road
+720,2020,Estádio do Dragão,50399,50399.0,Via Futebol Clube do Porto
+1110,2016,John Smith's Stadium,24500,24500.0,Stadium Way
+603,2017,Cardiff City Stadium,33280,33280.0,Leckwith Road
+2288,2018,Swansea.com Stadium,21088,21088.0,Landore
+148,2018,Tottenham Hotspur Stadium,62062,,782 High Road
+2288,2020,Swansea.com Stadium,21088,21088.0,Landore
+3008,2015,MKM Stadium,25586,25586.0,West Park
+13,2018,Civitas Metropolitano,68456,2017.0,Plaza de Grecia
+931,2016,Craven Cottage,22384,22384.0,Stevenage Road
+991,2018,Stadium mk,30500,,Stadium Way West
+641,2019,Riverside Stadium,33746,-1.0,Riverside Stadium
+512,2020,bet365 Stadium,30089,30089.0,Stanley Matthews Way
+641,2015,Riverside Stadium,33746,-1.0,Riverside Stadium
+1123,2016,Carrow Road,27244,27244.0,Carrow Road
+931,2017,Craven Cottage,22384,22384.0,Stevenage Road
+931,2019,Craven Cottage,22384,22384.0,Stevenage Road
+989,2020,Vitality Stadium,11329,11329.0,Kings Park
+762,2016,St James' Park,52338,52338.0,Barrack Road
+405,2016,Villa Park,42682,,Trinity Road
+399,2016,Elland Road,37890,37890.0,Elland Road
+1237,2016,AMEX Stadium,31800,31800.0,Village Way
+603,2016,Cardiff City Stadium,33280,33280.0,Leckwith Road
+984,2019,The Hawthorns,26850,26850.0,Halfords Lane
+350,2017,Bramall Lane,32702,,Bramall Lane
+931,2015,Craven Cottage,22384,22384.0,Stevenage Road
+399,2018,Elland Road,37890,37890.0,Elland Road
+512,2018,bet365 Stadium,30089,30089.0,Stanley Matthews Way
+984,2018,The Hawthorns,26850,26850.0,Halfords Lane
+1123,2018,Carrow Road,27244,27244.0,Carrow Road
+350,2018,Bramall Lane,32702,,Bramall Lane
+405,2018,Villa Park,42682,,Trinity Road
+3008,2018,MKM Stadium,25586,25586.0,West Park
+641,2018,Riverside Stadium,33746,-1.0,Riverside Stadium
+512,2019,bet365 Stadium,30089,30089.0,Stanley Matthews Way
+399,2019,Elland Road,37890,37890.0,Elland Road
+2288,2019,Swansea.com Stadium,21088,21088.0,Landore
+603,2019,Cardiff City Stadium,33280,33280.0,Leckwith Road
+1110,2019,John Smith's Stadium,24500,24500.0,Stadium Way
+1010,2020,Vicarage Road,21577,21577.0,Vicarage Road
+1110,2020,John Smith's Stadium,24500,24500.0,Stadium Way
+1123,2020,Carrow Road,27244,27244.0,Carrow Road
+641,2020,Riverside Stadium,33746,-1.0,Riverside Stadium
+603,2020,Cardiff City Stadium,33280,33280.0,Leckwith Road
+543,2017,Molineux Stadium,32050,32050.0,Waterloo Road
+405,2017,Villa Park,42682,,Trinity Road
+399,2017,Elland Road,37890,37890.0,Elland Road
+641,2017,Riverside Stadium,33746,-1.0,Riverside Stadium
+289,2017,Stadium of Light,48707,48707.0,Stadium Of Light
+3008,2017,MKM Stadium,25586,25586.0,West Park
+289,2020,Stadium of Light,48707,48707.0,Stadium Of Light
+3008,2020,MKM Stadium,25586,25586.0,West Park
+543,2015,Molineux Stadium,32050,32050.0,Waterloo Road
+1237,2015,AMEX Stadium,31800,31800.0,Village Way
+603,2015,Cardiff City Stadium,33280,33280.0,Leckwith Road
+399,2015,Elland Road,37890,37890.0,Elland Road
+1132,2015,Turf Moor,21994,21994.0,Harry Potts Way
+1110,2015,John Smith's Stadium,24500,24500.0,Stadium Way

@@ -131,7 +131,7 @@ rule scrape_stadiums:
         "src/scrape.py",
         "data/match_sheets.csv"
     output:
-        "data/stadium_{association}_{year}.html"
+        "data/stadiums/html/stadium_{association}_{season}.html"
     params:
         url=get_stadium_url
     shell:
@@ -140,19 +140,19 @@ rule scrape_stadiums:
 rule parse_stadiums:
     input:
         "src/parse_stadiums.py",
-        "data/stadium_{association}_{year}.html"
+        "data/stadiums/html/stadium_{association}_{season}.html"
     output:
-        temporary("data/stadium_{association}_{year}.csv")
+        temporary("data/stadiums/clean/stadium_{association}_{season}.csv")
     shell:
         "python {input} {output}"
 
 def get_stadium_names():
-    teams = pd.read_csv("data/teams.csv")
-    return (teams["url_stub"] + "_" + teams["association"].astype(str)).to_list()
+    match_sheets = pd.read_csv("data/match_sheets.csv")
+    return (match_sheets["association"].astype(str) + "_" + match_sheets["season"].astype(str)).to_list()
 
 rule concat_stadiums:
     input:
-        expand("data/stadium_{association_year}.csv", association_year=get_stadium_names())
+        expand("data/stadiums/clean/stadium_{association_season}.csv", association_season=get_stadium_names())
     output:
         "data/stadiums.csv"
     run:
@@ -175,12 +175,14 @@ rule update_test_data:
         "tests/data/teams_data.html",
         "tests/data/tottenham-hotspur_game_data.html",
         "tests/data/match_sheet_data_3194823.html",
-        "tests/data/stadium_data.html"
+        "tests/data/stadium_data_3299_2015.html",
+        "tests/data/stadium_data_631_2015.html"
     params:
         "'https://www.transfermarkt.co.uk/premier-league/startseite/wettbewerb/GB1'",
         "'https://www.transfermarkt.co.uk/tottenham-hotspur/spielplandatum/verein/148/plus/0?saison_id=2019&wettbewerb_id=&day=&heim_gast=&punkte=&datum_von=-&datum_bis=-'",
         "'https://www.transfermarkt.co.uk/spielbericht/index/spielbericht/3194823'",
-        "'https://www.transfermarkt.co.uk/stadion/stadion/verein/3299/saison_id/2015'"
+        "'https://www.transfermarkt.co.uk/stadion/stadion/verein/3299/saison_id/2015'",
+        "'https://www.transfermarkt.co.uk/stadion/stadion/verein/631/saison_id/2015'"
     shell:
         "python {input} {params} {output}"
 
