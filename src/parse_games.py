@@ -1,15 +1,8 @@
+import os
 import sys
-import re
 import pandas as pd
 from datetime import datetime
 from bs4 import BeautifulSoup
-
-def parse_date_time(date, time):
-    return datetime.strptime(date.split(" ")[-1] + " " + time, 
-                      "%d.%m.%y %H:%M")
-
-def parse_score(td):
-    return td.find_all('span')[0].text.strip().split(":")
 
 def parse_game_data(fn):
 
@@ -18,28 +11,30 @@ def parse_game_data(fn):
 
     soup = BeautifulSoup(html, "html.parser")
 
-    tables_div = soup.find_all(class_="large-8 columns")[0]
-
-    game_tables = tables_div.find_all('tbody')
+    tables_div = soup.find_all(class_="responsive-table")[0]
+    game_table = tables_div.find_all('tbody')[0]
+    game_rows = game_table.find_all('tr')
 
     game_data = []
 
-    for table in game_tables[1:]:
+    for table in game_rows:
 
         td = table.find_all('td')
 
-        if "List of goalscorers" in "".join([x.prettify() for x in td]):
+        if len(td) == 1:
             continue
 
-        date = td[9].find_all('a')[0].text.strip()
-        time = re.findall(r'(\d*:\d* \w*)', td[9].text)[0]
+        date = td[1].text.strip().split(" ")[-1]
+        time = td[2].text.strip()
 
         game_data.append(
-            {
-                "home_team": td[0].find_all('a')[-1].get("href").split("/")[1],
-                "away_team": td[7].find_all('a')[0].get("href").split("/")[1],
-                "date_time": datetime.strptime(date + " " + time, "%b %d, %Y %H:%M %p"),
-                "attendance": td[10].text.strip().split('\t')[0].replace(".", "").split(" ")[0]
+            {   
+                "date_time": datetime.strptime(date + " " + time, "%d.%m.%y %H:%M"),
+                "team_1": os.path.basename(fn).split("_")[0],
+                "team_2": td[5].find_all('a')[0].get("href").split("/")[1],
+                "attendance": td[8].text.strip().replace(".", ""),
+                "home_flag": td[3].text.strip(),
+                "match_sheet_id": td[9].find_all('a')[0].get("href").split("/")[-1]
             }
         )
         
