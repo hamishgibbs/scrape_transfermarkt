@@ -5,7 +5,7 @@ seasons = [2015, 2016, 2017, 2018, 2019, 2020]
 
 rule all:
     input:
-        "data/games.csv",
+        "output/games.csv",
         "rulegraph.svg"
 
 def get_teams_url(wildcards):
@@ -71,7 +71,7 @@ rule concat_games:
         "data/teams.csv",
         expand("data/games/clean/{team_association}_{season}.csv", team_association=get_team_names(), season=seasons)
     output:
-        temporary("data/games_concat.csv")
+        "data/games_concat.csv"
     shell:
         "python {input} {output}"
 
@@ -117,11 +117,12 @@ def get_match_sheet_ids():
 
 rule concat_match_sheets:
     input:
+        "data/games_concat.csv",
         expand("data/match_sheets/clean/match_sheet_{id}.csv", id=get_match_sheet_ids())
     output:
         "data/match_sheets.csv"
     run:
-        pd.concat([pd.read_csv(fn) for fn in input]).to_csv(output[0], index=False)
+        pd.concat([pd.read_csv(fn) for fn in input[1:]]).to_csv(output[0], index=False)
 
 def get_stadium_url(wildcards):
     return f"https://www.transfermarkt.co.uk/stadion/stadion/verein/{wildcards.association}/saison_id/{wildcards.season}"
@@ -155,11 +156,12 @@ def get_stadium_names():
  
 rule concat_stadiums:
     input:
+        "data/match_sheets.csv",
         expand("data/stadiums/clean/stadium_{association_season}.csv", association_season=get_stadium_names())
     output:
-        temporary("data/stadiums_concat.csv")
+        "data/stadiums_concat.csv"
     run:
-        pd.concat([pd.read_csv(fn) for fn in input]).drop_duplicates().to_csv(output[0], index=False)
+        pd.concat([pd.read_csv(fn) for fn in input[1:]]).drop_duplicates().to_csv(output[0], index=False)
 
 rule fill_missing_stadium_coords:
     input:
@@ -178,7 +180,7 @@ rule join_games_stadiums:
         "data/match_sheets.csv",
         "data/stadiums.csv"
     output:
-        "data/games.csv"
+        "output/games.csv"
     shell:
         "python {input} {output}"
 

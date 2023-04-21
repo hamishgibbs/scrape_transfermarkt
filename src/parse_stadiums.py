@@ -32,7 +32,6 @@ def parse_stadium_data(fn):
         "season": os.path.basename(fn).split("_")[-1].split(".")[0],
         "name": rows[0].find_all("td")[0].text.strip(),
         "capacity": rows[1].find_all("td")[0].text.strip().replace(".", ""),
-        "seats": rows[3].find_all("td")[0].text.strip().replace(".", ""),
         "x": x,
         "y": y
     }
@@ -40,7 +39,6 @@ def parse_stadium_data(fn):
     df = pd.DataFrame.from_records([stadium_data])
 
     df["capacity"] = pd.to_numeric(df["capacity"], errors="coerce")
-    df["seats"] = pd.to_numeric(df["seats"], errors="coerce")
     df["x"] = pd.to_numeric(df["x"], errors="coerce")
     df["y"] = pd.to_numeric(df["y"], errors="coerce")
 

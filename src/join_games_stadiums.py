@@ -15,7 +15,7 @@ def main():
 
     games = games.merge(stadiums, on=["association", "season"], how="left")
 
-    games.drop(["association", "season", "stadium_url"], axis=1, inplace=True)
+    games.drop(["association", "season", "stadium_url", "match_sheet_id"], axis=1, inplace=True)
 
     games.to_csv(sys.argv[-1], index=False)
 

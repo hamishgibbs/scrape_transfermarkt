@@ -3,7 +3,7 @@ import numpy as np
 from parse_match_sheet import parse_match_sheet
 from datetime import datetime
 
-def test_parse_game_data():
+def test_parse_match_sheet():
 
     res = parse_match_sheet("tests/data/match_sheet_data_3194823.html")
 
