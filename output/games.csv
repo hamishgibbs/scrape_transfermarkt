@@ -361,12 +361,8 @@ date_time,team_1,team_2,attendance,home_flag,stadium_name,capacity,x,y
 2019-05-05 14:00:00,fc-chelsea,fc-watford,40650.0,H,Stamford Bridge,40853,-0.1909565,51.481663
 2019-05-12 15:00:00,fc-chelsea,leicester-city,32140.0,A,King Power Stadium,32273,-1.14219,52.62037
 2019-05-12 15:00:00,fc-chelsea,leicester-city,32140.0,A,King Power Stadium,32273,-1.14219,52.62037
-2019-05-29 20:00:00,fc-chelsea,fc-arsenal,51370.0,H,Baku Olympic Stadium,69870,49.919592,40.429956
-2019-05-29 20:00:00,fc-chelsea,fc-arsenal,51370.0,H,Baku Olympic Stadium,69870,49.919592,40.429956
 2019-08-11 16:30:00,fc-chelsea,manchester-united,73620.0,A,Old Trafford,74879,-2.2913401,53.4630589
 2019-08-11 16:30:00,fc-chelsea,manchester-united,73620.0,A,Old Trafford,74879,-2.2913401,53.4630589
-2019-08-14 20:00:00,fc-chelsea,fc-liverpool,38434.0,A,Vodafone Park,42590,28.9941087,41.0393954
-2019-08-14 20:00:00,fc-chelsea,fc-liverpool,38434.0,A,Vodafone Park,42590,28.9941087,41.0393954
 2019-08-18 16:30:00,fc-chelsea,leicester-city,40629.0,H,Stamford Bridge,40853,-0.1909565,51.481663
 2019-08-18 16:30:00,fc-chelsea,leicester-city,40629.0,H,Stamford Bridge,40853,-0.1909565,51.481663
 2019-08-24 12:30:00,fc-chelsea,norwich-city,27032.0,A,Carrow Road,27244,1.3091533,52.6221139
@@ -537,8 +533,6 @@ date_time,team_1,team_2,attendance,home_flag,stadium_name,capacity,x,y
 2021-05-18 20:15:00,fc-chelsea,leicester-city,7195.0,H,Stamford Bridge,40853,-0.1909565,51.481663
 2021-05-23 16:00:00,fc-chelsea,aston-villa,,A,Villa Park,42682,-1.8847828,52.5091117
 2021-05-23 16:00:00,fc-chelsea,aston-villa,,A,Villa Park,42682,-1.8847828,52.5091117
-2021-05-29 20:00:00,fc-chelsea,manchester-city,14110.0,A,Estádio do Dragão,50399,-8.58362,41.16181
-2021-05-29 20:00:00,fc-chelsea,manchester-city,14110.0,A,Estádio do Dragão,50399,-8.58362,41.16181
 2015-08-10 20:00:00,manchester-city,west-bromwich-albion,24564.0,A,The Hawthorns,26850,-1.963938,52.509038
 2015-08-10 20:00:00,manchester-city,west-bromwich-albion,24564.0,A,The Hawthorns,26850,-1.963938,52.509038
 2015-08-16 16:00:00,manchester-city,fc-chelsea,54331.0,H,Etihad Stadium,55017,-2.2003953,53.4831381
@@ -1097,8 +1091,6 @@ date_time,team_1,team_2,attendance,home_flag,stadium_name,capacity,x,y
 2021-05-18 19:00:00,manchester-city,brighton-amp-hove-albion,7945.0,A,AMEX Stadium,31800,-0.0837163,50.8615651
 2021-05-23 16:00:00,manchester-city,fc-everton,10000.0,H,Etihad Stadium,55017,-2.2003953,53.4831381
 2021-05-23 16:00:00,manchester-city,fc-everton,10000.0,H,Etihad Stadium,55017,-2.2003953,53.4831381
-2021-05-29 20:00:00,manchester-city,fc-chelsea,14110.0,H,Estádio do Dragão,50399,-8.58362,41.16181
-2021-05-29 20:00:00,manchester-city,fc-chelsea,14110.0,H,Estádio do Dragão,50399,-8.58362,41.16181
 2015-08-02 15:00:00,fc-arsenal,fc-chelsea,85437.0,H,Wembley Stadium,90000,-0.2795188,51.5560208
 2015-08-02 15:00:00,fc-arsenal,fc-chelsea,85437.0,H,Wembley Stadium,90000,-0.2795188,51.5560208
 2015-08-09 13:30:00,fc-arsenal,west-ham-united,60006.0,H,Emirates Stadium,60704,-0.108438,51.5548885
@@ -1441,8 +1433,6 @@ date_time,team_1,team_2,attendance,home_flag,stadium_name,capacity,x,y
 2019-05-05 16:30:00,fc-arsenal,brighton-amp-hove-albion,59965.0,H,Emirates Stadium,60704,-0.108438,51.5548885
 2019-05-12 15:00:00,fc-arsenal,fc-burnley,21461.0,A,Turf Moor,21994,-2.2301736,53.7890244
 2019-05-12 15:00:00,fc-arsenal,fc-burnley,21461.0,A,Turf Moor,21994,-2.2301736,53.7890244
-2019-05-29 20:00:00,fc-arsenal,fc-chelsea,51370.0,A,Baku Olympic Stadium,69870,49.919592,40.429956
-2019-05-29 20:00:00,fc-arsenal,fc-chelsea,51370.0,A,Baku Olympic Stadium,69870,49.919592,40.429956
 2019-08-11 14:00:00,fc-arsenal,newcastle-united,47635.0,A,St James' Park,52338,-1.621656,54.975556
 2019-08-11 14:00:00,fc-arsenal,newcastle-united,47635.0,A,St James' Park,52338,-1.621656,54.975556
 2019-08-17 12:30:00,fc-arsenal,fc-burnley,60214.0,H,Emirates Stadium,60704,-0.108438,51.5548885
@@ -2495,14 +2485,10 @@ date_time,team_1,team_2,attendance,home_flag,stadium_name,capacity,x,y
 2019-05-04 19:45:00,fc-liverpool,newcastle-united,52206.0,A,St James' Park,52338,-1.621656,54.975556
 2019-05-12 15:00:00,fc-liverpool,wolverhampton-wanderers,53331.0,H,Anfield,54074,-2.96083,53.4308294
 2019-05-12 15:00:00,fc-liverpool,wolverhampton-wanderers,53331.0,H,Anfield,54074,-2.96083,53.4308294
-2019-06-01 20:00:00,fc-liverpool,tottenham-hotspur,63272.0,A,Civitas Metropolitano,68456,-3.59948,40.434623
-2019-06-01 20:00:00,fc-liverpool,tottenham-hotspur,63272.0,A,Civitas Metropolitano,68456,-3.59948,40.434623
 2019-08-04 15:00:00,fc-liverpool,manchester-city,77565.0,H,Wembley Stadium,90000,-0.2795188,51.5560208
 2019-08-04 15:00:00,fc-liverpool,manchester-city,77565.0,H,Wembley Stadium,90000,-0.2795188,51.5560208
 2019-08-09 20:00:00,fc-liverpool,norwich-city,53333.0,H,Anfield,54074,-2.96083,53.4308294
 2019-08-09 20:00:00,fc-liverpool,norwich-city,53333.0,H,Anfield,54074,-2.96083,53.4308294
-2019-08-14 20:00:00,fc-liverpool,fc-chelsea,38434.0,H,Vodafone Park,42590,28.9941087,41.0393954
-2019-08-14 20:00:00,fc-liverpool,fc-chelsea,38434.0,H,Vodafone Park,42590,28.9941087,41.0393954
 2019-08-17 15:00:00,fc-liverpool,fc-southampton,31712.0,A,St Mary's Stadium,32384,-1.390954,50.9058218
 2019-08-17 15:00:00,fc-liverpool,fc-southampton,31712.0,A,St Mary's Stadium,32384,-1.390954,50.9058218
 2019-08-24 17:30:00,fc-liverpool,fc-arsenal,53298.0,H,Anfield,54074,-2.96083,53.4308294
@@ -3011,8 +2997,6 @@ date_time,team_1,team_2,attendance,home_flag,stadium_name,capacity,x,y
 2019-05-04 12:30:00,tottenham-hotspur,afc-bournemouth,10630.0,A,Vitality Stadium,11329,-1.8382791,50.7352306
 2019-05-12 15:00:00,tottenham-hotspur,fc-everton,60124.0,H,Tottenham Hotspur Stadium,62062,-0.067045,51.604652
 2019-05-12 15:00:00,tottenham-hotspur,fc-everton,60124.0,H,Tottenham Hotspur Stadium,62062,-0.067045,51.604652
-2019-06-01 20:00:00,tottenham-hotspur,fc-liverpool,63272.0,H,Civitas Metropolitano,68456,-3.59948,40.434623
-2019-06-01 20:00:00,tottenham-hotspur,fc-liverpool,63272.0,H,Civitas Metropolitano,68456,-3.59948,40.434623
 2019-08-10 17:30:00,tottenham-hotspur,aston-villa,60407.0,H,Tottenham Hotspur Stadium,62062,-0.067045,51.604652
 2019-08-10 17:30:00,tottenham-hotspur,aston-villa,60407.0,H,Tottenham Hotspur Stadium,62062,-0.067045,51.604652
 2019-08-17 17:30:00,tottenham-hotspur,manchester-city,54503.0,A,Etihad Stadium,55017,-2.2003953,53.4831381
