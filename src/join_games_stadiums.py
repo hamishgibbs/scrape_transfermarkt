@@ -11,7 +11,7 @@ def main():
 
     games = games.merge(match_sheets, on="match_sheet_id", how="left")
 
-    stadiums = stadiums[["association", "season", "capacity", "seats", "x", "y"]]
+    stadiums = stadiums[["association", "season", "capacity", "x", "y"]]
 
     games = games.merge(stadiums, on=["association", "season"], how="left")
 

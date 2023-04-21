@@ -36,6 +36,11 @@ stadiums_geo <- list()
 
 for (i in 1:nrow(stadiums)) {
   
+  stadium_bbox <- st_bbox(stadiums[i, ]) 
+  buffer <- 1000 / 111139
+  stadium_bbox <- stadium_bbox + c(-buffer, -buffer, buffer, buffer)
+  
+  
   st_bbox(stadiums[i, ])
   
   osm_features <- opq(bbox = paste0(stadiums[i, "city"], ", UK")) %>%
@@ -72,4 +77,6 @@ for (i in 1:nrow(stadiums)) {
 
 st_write(do.call(rbind, stadiums_geo), tail(.args, 1), delete_dsn = T)
 
-
+opq(bbox = st_bbox(rnaturalearth::ne_states("United Kingdom", returnclass = "sf")[1, ])) %>%
+  add_osm_feature(key = "leisure", value = "stadium") %>% 
+  osmdata_sf()

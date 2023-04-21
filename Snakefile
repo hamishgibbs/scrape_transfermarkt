@@ -62,8 +62,12 @@ rule parse_games:
         "python {input} {output}"
 
 def get_team_names():
-    teams = pd.read_csv("data/teams.csv")
-    return (teams["url_stub"] + "_" + teams["association"].astype(str)).to_list()
+    fn = "data/teams.csv"
+    if os.path.exists(fn):
+        teams = pd.read_csv(fn)
+        return (teams["url_stub"] + "_" + teams["association"].astype(str)).to_list()
+    else:
+        return []
 
 rule concat_games:
     input:
@@ -150,10 +154,11 @@ rule parse_stadiums:
 def get_stadium_names():
     fn = "data/match_sheets.csv"
     if os.path.exists(fn):
-        return pd.read_csv(fn)["match_sheet_id"].to_list()
+        match_sheets = pd.read_csv(fn)
+        return (match_sheets["association"].astype(str) + "_" + match_sheets["season"].astype(str)).to_list()
     else:
         return []
- 
+    
 rule concat_stadiums:
     input:
         "data/match_sheets.csv",
