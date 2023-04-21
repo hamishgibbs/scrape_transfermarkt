@@ -21,6 +21,8 @@ def main():
     games = games[(games["x"] > -9) & (games["x"] < 2.01)]
     games = games[(games["y"] > 49.75) & (games["y"] < 61.01)]
 
+    games.drop_duplicates(inplace=True)
+
     games.to_csv(sys.argv[-1], index=False)
 
 if __name__ == "__main__":
