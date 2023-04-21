@@ -16,10 +16,6 @@ def main():
 
     stadiums = pd.concat([stadiums[~pd.isna(stadiums["x"])], missing_stadiums])
 
-    # Drop stadiums outside the UK based on OSGB bounding box: https://epsg.io/27700
-    stadiums[(stadiums["x"] > -9) & (stadiums["x"] < 2.01)]
-    stadiums[(stadiums["y"] > 49.75) & (stadiums["y"] < 61.01)]
-
     stadiums.to_csv(sys.argv[-1], index=False)
 
 if __name__ == "__main__":

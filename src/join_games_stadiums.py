@@ -17,6 +17,10 @@ def main():
 
     games.drop(["association", "season", "stadium_url", "match_sheet_id"], axis=1, inplace=True)
 
+    # Drop stadiums outside the UK based on OSGB bounding box: https://epsg.io/27700
+    games[(games["x"] > -9) & (games["x"] < 2.01)]
+    games[(games["y"] > 49.75) & (games["y"] < 61.01)]
+
     games.to_csv(sys.argv[-1], index=False)
 
 if __name__ == "__main__":
