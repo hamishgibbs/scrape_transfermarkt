@@ -34,6 +34,8 @@ stadiums$value[which(stadiums$osm_name == "Turf Moor")] <- "sport"
 
 stadiums_geo <- list()
 
+stadiums_p <- list()
+
 for (i in 1:nrow(stadiums)) {
   
   stadium_bbox <- st_bbox(stadiums[i, ]) 
@@ -56,7 +58,11 @@ for (i in 1:nrow(stadiums)) {
   validation_fn <- paste0("data/geo/validation/", stadiums$osm_name[i], ".png")
   
   p <- ggplot() + 
-    geom_sf(data=stadium_geo)
+    geom_sf(data=stadium_geo) + 
+    theme_void() + 
+    labs(title = stadiums$osm_name[i])
+  
+  stadiums_p[[i]] <- p
   
   ggsave(validation_fn, p, width=5, height=5, units = "in")
   
@@ -68,4 +74,12 @@ for (i in 1:nrow(stadiums)) {
   
 }
 
-st_write(do.call(rbind, stadiums_geo), tail(.args, 1), delete_dsn = T)
+stadiums_geo <- do.call(rbind, stadiums_geo)
+
+st_crs(stadiums_geo)
+
+st_write(stadiums_geo, tail(.args, 1), delete_dsn = T)
+
+p_val <- cowplot::plot_grid(plotlist = stadiums_p, 
+                   ncol=6,
+                   nrow=6)
