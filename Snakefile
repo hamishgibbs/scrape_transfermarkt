@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 
-seasons = [2015, 2016, 2017, 2018, 2019, 2020]
+seasons = [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
 
 rule all:
     input:
